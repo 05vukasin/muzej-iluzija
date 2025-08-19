@@ -161,35 +161,50 @@ export default function Navbar() {
             transition={{ duration: 0.35, ease: "easeOut" }}
             className="fixed inset-0 w-screen h-screen z-[50] bg-white md:hidden"
           >
-            <div className="mx-auto flex h-full max-w-7xl flex-col items-center justify-center gap-8 px-6">
-              {links.map((item) => (
-                <button
-                  key={item.href}
-                  onClick={() => navigateTo(item.href)}
-                  className="text-2xl text-primary hover:text-accent-2 font-semibold"
-                >
-                  {language === "sr" ? item.nameSr : item.nameEn}
-                </button>
-              ))}
+            <div className="mx-auto flex h-full max-w-7xl flex-col justify-between">
+              {/* Linkovi sa border-bottom */}
+              <div className="flex flex-col items-center justify-center flex-1 w-full px-6">
+                {links.map((item, idx) => (
+                  <button
+                    key={item.href}
+                    onClick={() => navigateTo(item.href)}
+                    className={`w-full text-center text-2xl text-primary hover:text-accent-2 font-semibold py-4 
+                ${idx < links.length - 1 ? "border-b border-gray-200" : ""}`}
+                  >
+                    {language === "sr" ? item.nameSr : item.nameEn}
+                  </button>
+                ))}
 
-              {/* Jezik i zastava i unutar menija */}
-              <button
-                onClick={changeLanguage}
-                className="flex items-center gap-2 rounded-full border border-black/10 px-4 py-2 text-primary hover:bg-accent-1/60"
-              >
+                {/* Jezik unutar menija */}
+                <button
+                  onClick={changeLanguage}
+                  className="mt-6 flex items-center gap-2 rounded-full border border-black/10 px-4 py-2 text-primary hover:bg-accent-1/60"
+                >
+                  <Image
+                    src={
+                      language === "sr"
+                        ? "/images/uk-flag.png"
+                        : "/images/serbia-flag.png"
+                    }
+                    alt={language === "sr" ? "English" : "Srpski"}
+                    width={20}
+                    height={14}
+                    className="h-3.5 w-auto"
+                  />
+                  {language === "sr" ? "SR → EN" : "EN → SR"}
+                </button>
+              </div>
+
+              {/* Linija + Logo na dnu */}
+              <div className="w-full border-t border-gray-300 py-4 flex justify-center">
                 <Image
-                  src={
-                    language === "sr"
-                      ? "/images/uk-flag.png"
-                      : "/images/serbia-flag.png"
-                  }
-                  alt={language === "sr" ? "English" : "Srpski"}
-                  width={20}
-                  height={14}
-                  className="h-3.5 w-auto"
+                  src="/images/logo-colors.png"
+                  alt="Logo footer"
+                  width={180}
+                  height={60}
+                  className="h-12 w-auto object-contain"
                 />
-                {language === "sr" ? "SR → EN" : "EN → SR"}
-              </button>
+              </div>
             </div>
           </motion.aside>
         )}
