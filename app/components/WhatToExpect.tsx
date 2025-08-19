@@ -49,7 +49,7 @@ export default function WhatToExpect() {
               {title}
             </h2>
 
-            <div className="relative flex-1 min-w-[80px] min-h-[80px] rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl">
+            <div className="relative flex-1 min-w-[50px] min-h-[80px] rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl">
               <Image
                 src="/images/picture-3.jpg"
                 alt={language === "sr" ? "Iluzije – postavka" : "Illusions – exhibit"}
