@@ -192,7 +192,7 @@ export default function Hero() {
             animation: swing 2.2s ease-in-out infinite alternate;
           }
           .card_logo img {
-            width: 540px !important;
+            width: 90%;
             height: auto !important;
           }
           .card_body {

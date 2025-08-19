@@ -169,7 +169,7 @@ export default function Navbar() {
                     key={item.href}
                     onClick={() => navigateTo(item.href)}
                     className={`w-full text-center text-2xl text-primary hover:text-accent-2 font-semibold py-4 
-                ${idx < links.length - 1 ? "border-b border-gray-200" : ""}`}
+                ${idx < links.length ? "border-b border-gray-200" : ""}`}
                   >
                     {language === "sr" ? item.nameSr : item.nameEn}
                   </button>
@@ -193,17 +193,15 @@ export default function Navbar() {
                   />
                   {language === "sr" ? "SR → EN" : "EN → SR"}
                 </button>
+                {/* Linija + Logo na dnu */}
               </div>
-
-              {/* Linija + Logo na dnu */}
-              {/* Linija + Logo na dnu */}
               <div className="w-full border-t border-gray-300 py-4 flex justify-center">
                 <Image
                   src="/images/logo-colors.png"
                   alt="Logo footer"
                   width={200} // fallback vrednost
                   height={70}
-                  className="w-[90%] max-w-[280px] h-auto object-contain"
+                  className="w-[80%] max-w-[280px] h-auto object-contain"
                 />
               </div>
             </div>
