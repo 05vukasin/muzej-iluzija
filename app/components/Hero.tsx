@@ -74,7 +74,7 @@ export default function Hero() {
         }
         .card {
           width: min(94vw, 680px);
-          height: clamp(320px, 52vw, 460px);
+          height: clamp(220px, 52vw, 400px);
           background: rgba(10, 10, 10, 0.7);
           border-radius: 20px;
           position: relative;
@@ -112,7 +112,7 @@ export default function Hero() {
           right: 20px;
           top: 20px;
           font-weight: 900;
-          font-size: clamp(22px, 5vw, 38px);
+          font-size: clamp(28px, 5vw, 38px);
           line-height: 1.2;
           transform: translateZ(60px);
           text-align: center;
@@ -136,27 +136,23 @@ export default function Hero() {
         }
 
         .card_logo {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) translateZ(55px);
           display: flex;
+          padding-top:100px;
           justify-content: center;
           align-items: center;
           z-index: 2;
         }
 
         .card_logo img {
-  width: 90% !important;    /* 90% od širine kartice */
-  height: auto !important;  /* proporcionalno */
-  max-width: none !important;
-}
-
+          width: 90% !important; /* 90% od širine kartice */
+          height: auto !important; /* proporcionalno */
+          max-width: none !important;
+        }
 
         .card_body {
           position: absolute;
-          left: 20px;
-          right: 20px;
+          left: 10px;
+          right: 10px;
           bottom: 88px;
           color: #f0f0f0;
           font-weight: 300;
@@ -192,7 +188,7 @@ export default function Hero() {
         /* mobilna prilagodljivost */
         @media (max-width: 640px) {
           .card {
-            height: 360px;
+            height: 300px;
             animation: swing 2.2s ease-in-out infinite alternate;
           }
           .card_logo img {
