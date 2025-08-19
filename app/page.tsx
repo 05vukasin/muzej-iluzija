@@ -1,5 +1,7 @@
 import Hero from "./components/Hero";
 import About from "./components/About";
+import IllusionSection from "./components/IllusionSection";
+import WhatToExpect from "./components/WhatToExpect";
 
 
 export default function Home() {
@@ -7,6 +9,8 @@ export default function Home() {
     <main className="relative overflow-visible">
       <Hero />
       <About />
+      <IllusionSection />
+      <WhatToExpect />
     </main>
   );
 }
