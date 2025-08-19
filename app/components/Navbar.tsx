@@ -9,7 +9,8 @@ import { LanguageContext } from "@/app/context/LanguageContext";
 
 const links = [
   { nameSr: "Početna", nameEn: "Home", href: "/#home" },
-  { nameSr: "Kontakt", nameEn: "Contact", href: "/#contact" },
+  { nameSr: "Kontakt", nameEn: "Contact", href: "/contact" },
+  { nameSr: "Cenovnik", nameEn: "Pricing", href: "/pricing" },
 ];
 
 export default function Navbar() {

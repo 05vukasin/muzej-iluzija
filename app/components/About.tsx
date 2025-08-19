@@ -1,59 +1,61 @@
 "use client";
 
 import { useContext } from "react";
-import { LanguageContext } from "../context/LanguageContext";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { LanguageContext } from "@/app/context/LanguageContext";
+import Cube from "@/app/components/cube";
 
-const About = () => {
+export default function About() {
   const { language } = useContext(LanguageContext);
+
+  const title = language === "sr" ? "KO SMO" : "WHO WE ARE";
+  const p1 =
+    language === "sr"
+      ? "Iluzionarijum je jedinstvena atrakcija koja posetiocima nudi nezaboravno iskustvo ispunjeno igrom i otkrićima. Sa raznovrsnim interaktivnim postavkama, svako – od najmlađih do odraslih – može da se upusti u svet optičkih iluzija i zabavnih eksperimenata koji pomeraju granice percepcije."
+      : "Iluzionarijum is a unique attraction offering an unforgettable experience of play and discovery. With diverse interactive exhibits, everyone—from kids to adults—can dive into a world of optical illusions and playful experiments that push the limits of perception.";
+  const p2 =
+    language === "sr"
+      ? "Na prelepom Zlatiboru, istraživanje i zabava ne prestaju nakon obilaska postavke: u blizini su dodatne atrakcije i mogućnosti uživanja u prirodi. Avantura se nastavlja i na našem sajtu, gde vas čeka dodatni interaktivni svet iluzija."
+      : "On beautiful Zlatibor, exploration and fun continue after the exhibits: nearby attractions and pristine nature await. The adventure also continues on our website with an extra interactive world of illusions.";
+  const p3 =
+    language === "sr"
+      ? "Iluzionarijum je idealan za porodične izlete i školske posete, gde deca uče kroz igru. Prilagođen svim uzrastima, spaja zabavu i edukaciju u nezaboravno putovanje kroz svet iluzija."
+      : "Iluzionarijum is ideal for family trips and school visits, where kids learn through play. For all ages, it blends fun and education into a memorable journey through illusions.";
 
   return (
     <section
       id="about"
-      className="relative bg-[var(--color-section)] text-white py-24 overflow-visible"
+      className="relative overflow-hidden bg-white"
+      aria-labelledby="about-title"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:flex lg:items-center relative z-10">
-        {/* Tekst */}
-        <motion.div
-          className="lg:w-1/2"
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl text-gray-400 sm:text-5xl font-bold neon-title">
-            {language === "sr" ? "O Muzeju Iluzija" : "About the Museum of Illusions"}
-          </h2>
-          <p className="text-lg mt-6 text-gray-900 leading-relaxed drop-shadow-lg">
-            {language === "sr"
-              ? "Muzej Iluzija je prostor gde se nauka susreće sa zabavom! Uronite u svet optičkih varki, interaktivnih soba i eksponata koji će vas navesti da preispitate stvarnost."
-              : "The Museum of Illusions is where science meets fun! Step into a world of optical illusions, interactive rooms, and exhibits that will challenge your perception of reality."}
-          </p>
-        </motion.div>
+      {/* 3D kocke – donji desni ugao, iza sadržaja */}
+       <div className="pointer-events-none absolute bottom-0 right-0 w-[45vw] max-w-[560px] h-[45vw] max-h-[560px]">
+        <Cube scale={1.2} className="!pointer-events-none" />
+      </div>
 
-        {/* Slika */}
-        <motion.div
-          className="lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-end relative"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-        >
-          <div className="relative w-full max-w-lg">
-            <div className="absolute -inset-10 bg-[#892EFF] blur-[40px] opacity-40 rounded-lg z-0" />
-            <Image
-              src="/iluzija-1.jpg" // obavezno postavi sliku ovde
-              alt="Muzej Iluzija"
-              width={660}
-              height={440}
-              className="rounded-lg shadow-xl transform hover:scale-105 transition duration-500 relative z-10"
-            />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 min-h-[70vh] grid items-center">
+        <div className="max-w-3xl">
+          <h2
+            id="about-title"
+            className="text-3xl md:text-5xl font-black text-primary tracking-tight"
+          >
+            {title}
+          </h2>
+          <div className="mt-6 space-y-5 text-primary/80 leading-relaxed text-base md:text-lg">
+            <p>{p1}</p>
+            <p>{p2}</p>
+            <p>{p3}</p>
           </div>
-        </motion.div>
+
+          <div className="mt-8">
+            <a
+              href="/contact"
+              className="inline-block rounded-full bg-brand-235 text-white px-6 py-3 font-semibold hover:brightness-110 transition"
+            >
+              {language === "sr" ? "Kontaktirajte nas" : "Contact us"}
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}
