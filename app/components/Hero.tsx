@@ -1,84 +1,210 @@
+// app/components/Hero.tsx
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { useContext } from "react";
 import { LanguageContext } from "../context/LanguageContext";
-import Lottie from "lottie-react";
-import animationData from "@/public/dot.json"; // putanja iz public foldera
 
-const backgroundImage = "/background.jpg";
+const backgroundImage = "/images/picture-1.jpg";
+const logo = "/images/logo-white.png";
 
-const Hero = () => {
+export default function Hero() {
   const { language } = useContext(LanguageContext);
 
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center text-center text-white overflow-hidden"
+      className="relative grid min-h-[calc(100svh-4rem)] place-items-center overflow-hidden"
     >
-      {/* Pozadinska slika */}
-      <div className="absolute inset-0 z-0">
+      {/* Pozadina */}
+      <div className="absolute inset-0 -z-10">
         <Image
           src={backgroundImage}
-          alt="Muzej Iluzija"
+          alt={
+            language === "sr"
+              ? "Iluzionarijum pozadina"
+              : "Iluzionarijum background"
+          }
           fill
-          style={{ objectFit: "cover" }}
-          quality={100}
           priority
+          sizes="100vw"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       </div>
 
-      {/* 🎞️ Lottie animacija između pozadine i teksta */}
-      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-        <div className="absolute w-[100%] h-[100%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Lottie
-            animationData={animationData}
-            loop
-            autoplay
-            className="w-full h-full"
-          />
+      {/* Kartica */}
+      <div className="px-4 w-full max-w-6xl mx-auto">
+        <div className="cards mx-auto">
+          <figure className="card">
+            <figcaption className="card_title">
+              {language === "sr"
+                ? "Muzej iluzija na Zlatiboru"
+                : "Museum of Illusions in Zlatibor"}
+            </figcaption>
+
+            {/* Logo centriran na sredinu kartice */}
+            <div className="card_logo">
+              <Image
+                src={logo}
+                alt="Iluzionarijum logo"
+                width={520}
+                height={520}
+                priority
+              />
+            </div>
+
+            <p className="card_body">
+              {language === "sr"
+                ? "Interaktivne instalacije, optičke iluzije i vizuelne zagonetke za celu porodicu."
+                : "Interactive installations, optical illusions and visual brain teasers for all ages."}
+            </p>
+
+            <a href="/iluzije" className="card_btn">
+              {language === "sr" ? "Pogledaj" : "Explore"}
+            </a>
+          </figure>
         </div>
       </div>
 
-      {/* Tekst i dugme */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="relative z-20 px-6"
-      >
-        <h1 className="text-4xl md:text-6xl font-bold drop-shadow-[0_5px_15px_rgba(0,0,0,1)]">
-          {language === "sr" ? "Dobrodošli u" : "Welcome to"}
-          <br />
-          <motion.span
-            className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#892EFF] to-[#a566ff]"
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            {language === "sr" ? "Muzej Iluzija" : "Museum of Illusions"}
-          </motion.span>
-        </h1>
+      <style jsx>{`
+        .cards {
+          display: grid;
+          place-items: center;
+          perspective: 1000px;
+        }
+        .card {
+          width: min(94vw, 680px);
+          height: clamp(320px, 52vw, 460px);
+          background: rgba(10, 10, 10, 0.7);
+          border-radius: 20px;
+          position: relative;
+          transform-style: preserve-3d;
+          overflow: hidden;
+          box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+          transform: rotateY(14deg) rotateX(6deg);
+          animation: swing 2.6s ease-in-out infinite alternate;
+        }
+        @keyframes swing {
+          0% {
+            transform: rotateY(14deg) rotateX(6deg) scale(1);
+          }
+          100% {
+            transform: rotateY(20deg) rotateX(9deg) scale(1.03);
+          }
+        }
 
-        <p className="mt-4 text-lg md:text-xl drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)] max-w-2xl mx-auto">
-          {language === "sr"
-            ? "Interaktivni svet optičkih iluzija, zagonetki i vizuelne zabave!"
-            : "An interactive world of optical illusions, brain teasers and visual wonder!"}
-        </p>
+        .card::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(
+            120% 120% at 100% 0%,
+            rgba(255, 255, 255, 0.12),
+            transparent 70%
+          );
+          pointer-events: none;
+          transform: translateZ(1px);
+        }
 
-        <motion.a
-          href="/iluzije"
-          className="mt-6 inline-block bg-[#892EFF] hover:bg-[#a566ff] transition text-white font-bold py-4 px-8 text-xl rounded-full shadow-[0_0_30px_#892EFF]"
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          {language === "sr" ? "Pogledaj iluzije" : "Explore Illusions"}
-        </motion.a>
-      </motion.div>
+        .card_title {
+          position: absolute;
+          left: 20px;
+          right: 20px;
+          top: 20px;
+          font-weight: 900;
+          font-size: clamp(22px, 5vw, 38px);
+          line-height: 1.2;
+          transform: translateZ(60px);
+          text-align: center;
+          background-image: linear-gradient(
+            90deg,
+            #ff0080,
+            #7928ca,
+            #2afadf,
+            #009efd
+          );
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: gradient-move 4s linear infinite;
+        }
+        @keyframes gradient-move {
+          to {
+            background-position: 200% center;
+          }
+        }
+
+        .card_logo {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) translateZ(55px);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 2;
+        }
+
+        .card_logo img {
+  width: 90% !important;    /* 90% od širine kartice */
+  height: auto !important;  /* proporcionalno */
+  max-width: none !important;
+}
+
+
+        .card_body {
+          position: absolute;
+          left: 20px;
+          right: 20px;
+          bottom: 88px;
+          color: #f0f0f0;
+          font-weight: 300;
+          font-size: clamp(15px, 3.5vw, 19px);
+          line-height: 1.45;
+          transform: translateZ(38px);
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+          text-align: center;
+        }
+
+        .card_btn {
+          position: absolute;
+          left: 50%;
+          bottom: 24px;
+          transform: translateX(-50%) translateZ(70px);
+          display: inline-block;
+          padding: 12px 28px;
+          border-radius: 9999px;
+          background: linear-gradient(90deg, #ff0080, #7928ca);
+          color: #fff;
+          font-weight: 700;
+          text-decoration: none;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+          transition: transform 0.15s ease, filter 0.2s ease;
+        }
+        .card_btn:hover {
+          filter: brightness(1.08);
+        }
+        .card_btn:active {
+          transform: translateX(-50%) translateZ(70px) scale(0.97);
+        }
+
+        /* mobilna prilagodljivost */
+        @media (max-width: 640px) {
+          .card {
+            height: 360px;
+            animation: swing 2.2s ease-in-out infinite alternate;
+          }
+          .card_logo img {
+            width: 540px !important;
+            height: auto !important;
+          }
+          .card_body {
+            font-size: 15px;
+            bottom: 76px;
+          }
+        }
+      `}</style>
     </section>
   );
-};
-
-export default Hero;
+}

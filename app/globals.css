@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Brand paleta (light) */
+@theme {
+  --color-brand-black: #141414; /* Pantone Black C */
+  --color-brand-2706: #CBD3EB;  /* Pantone 2706C */
+  --color-brand-235:  #840B55;  /* Pantone 235C */
+  --color-brand-629:  #9BD3DD;  /* Pantone 629C */
+
+  /* aliasi */
+  --color-primary: var(--color-brand-black);
+  --color-accent-1: var(--color-brand-2706);
+  --color-accent-2: var(--color-brand-235);
+  --color-accent-3: var(--color-brand-629);
+}
+
+:root { color-scheme: light; }
+
 body {
-  @apply bg-gray-100 text-gray-900;
+  @apply bg-white text-primary antialiased;
 }

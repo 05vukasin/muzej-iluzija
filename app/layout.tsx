@@ -1,61 +1,50 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "./Navbar";
-import { LanguageProvider } from "./context/LanguageContext";
-import ScrollToTop from "./ScrollToTop"; // ⬅️ Dodato
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Preloader from "./components/Preloader";
+import { LanguageProvider } from "./context/LanguageContext";
+import ScrollToTop from "./ScrollToTop";
+import { axiforma } from "./fonts"; // import ostaje
 
 export const metadata: Metadata = {
-  title: "Dino Park Zlatibor",
+  title: "Iluzionarijum — Muzej iluzija Zlatibor",
   description:
-    "Zvanični sajt Dino Parka Zlatibor - edukacija, zabava, avantura",
-  keywords: [
-    "dino park",
-    "zlatibor",
-    "porodica",
-    "aktivnosti",
-    "deca",
-    "zabava",
-    "dinosaurusi",
-  ],
+    "Zvaničan sajt Iluzionarijuma na Zlatiboru — optičke iluzije, interaktivne instalacije, edukacija i zabava za celu porodicu.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/images/logo-colors.png",
   },
   openGraph: {
-    title: "Dino Park Zlatibor",
-    description:
-      "Idealno mesto za porodicu i decu - istražite svet dinosaurusa!",
+    title: "Iluzionarijum — Muzej iluzija Zlatibor",
+    description: "Doživite svet optičkih iluzija i interaktivnih instalacija na Zlatiboru.",
     type: "website",
-    url: "https://www.dinopark.rs",
-    images: [
-      {
-        url: "/logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Dino Park Open Graph Image",
-      },
-    ],
+    images: [{ url: "/images/logo-colors.png", width: 1200, height: 630, alt: "Iluzionarijum" }],
+    siteName: "Iluzionarijum",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Iluzionarijum — Muzej iluzija Zlatibor",
+    description: "Optičke iluzije, interaktivne instalacije, edukacija i zabava.",
+    images: ["/images/logo-colors.png"],
+  },
+  themeColor: "#ffffff",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="sr" className="overflow-x-hidden">
-      <body className="bg-gray-100 text-gray-900 overflow-x-hidden">
+      {/* KLJUČNO: koristi axiforma.className umesto variable */}
+      <body className={`${axiforma.className} bg-white text-primary overflow-x-hidden antialiased`}>
         <LanguageProvider>
+          <Preloader />
           <Navbar />
-          <ScrollToTop /> {/* ⬅️ Ubaceno ovde */}
-          <main className="w-full max-w-[100vw] overflow-x-hidden">
-            {children}
-          </main>
+          <ScrollToTop />
+          <main className="pt-16 w-full max-w-[100vw] overflow-x-hidden">{children}</main>
+          <Footer />
         </LanguageProvider>
-        <Footer />
       </body>
     </html>
   );
