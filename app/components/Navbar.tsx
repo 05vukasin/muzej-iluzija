@@ -196,13 +196,14 @@ export default function Navbar() {
               </div>
 
               {/* Linija + Logo na dnu */}
+              {/* Linija + Logo na dnu */}
               <div className="w-full border-t border-gray-300 py-4 flex justify-center">
                 <Image
                   src="/images/logo-colors.png"
                   alt="Logo footer"
-                  width={180}
-                  height={60}
-                  className="h-12 w-auto object-contain"
+                  width={200} // fallback vrednost
+                  height={70}
+                  className="w-[90%] max-w-[280px] h-auto object-contain"
                 />
               </div>
             </div>
