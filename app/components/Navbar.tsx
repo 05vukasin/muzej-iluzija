@@ -195,7 +195,7 @@ export default function Navbar() {
                 </button>
                 {/* Linija + Logo na dnu */}
               </div>
-              <div className="w-full border-t border-gray-300 py-4 flex justify-center">
+              <div className="w-full border-t border-gray-300 py-4 pb-20 flex justify-center">
                 <Image
                   src="/images/logo-colors.png"
                   alt="Logo footer"
