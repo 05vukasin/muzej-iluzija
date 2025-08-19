@@ -10,7 +10,7 @@ export default function WhatToExpect() {
 
   const title =
     language === "sr"
-      ? "ŠTA TE SVE ČEKA U ILUZIONARIJUMU?"
+      ? "ŠTA TE SVE ČEKA U KOD NAS?"
       : "WHAT AWAITS YOU AT ILUZIONARIJUM?";
 
   const items =
