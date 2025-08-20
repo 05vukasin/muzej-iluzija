@@ -59,7 +59,7 @@ export default function Hero() {
                 : "Interactive installations, optical illusions and visual brain teasers for all ages."}
             </p>
 
-            <a href="/iluzije" className="card_btn">
+            <a href="/illusions" className="card_btn">
               {language === "sr" ? "Pogledaj" : "Explore"}
             </a>
           </figure>
