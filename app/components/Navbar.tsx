@@ -11,6 +11,7 @@ const links = [
   { nameSr: "Početna", nameEn: "Home", href: "/#home" },
   { nameSr: "Kontakt", nameEn: "Contact", href: "/contact" },
   { nameSr: "Cenovnik", nameEn: "Pricing", href: "/pricing" },
+  { nameSr: "Iluzije", nameEn: "Illusions", href: "/illusions" },
 ];
 
 export default function Navbar() {
