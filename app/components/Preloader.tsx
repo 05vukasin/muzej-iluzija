@@ -6,8 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Preloader() {
   const [pageLoaded, setPageLoaded] = useState(false);
-  const [videoEnded, setVideoEnded] = useState(false);
+  const [videoDone, setVideoDone] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Ako menjaš fajl a zadržavaš ime – dodaj query da bustuješ keš
+  const src = "/loading-animation.mp4?v=2";
 
   // 1) Stranica učitana
   useEffect(() => {
@@ -17,100 +20,83 @@ export default function Preloader() {
     return () => window.removeEventListener("load", onLoad);
   }, []);
 
-  // 2) Robustno rukovanje videom
+  // 2) Robustno rukovanje videom (iOS-friendly)
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
 
-    // -- SIGURNOSNI TAJMER: ako ništa ne stigne, zatvori posle 6s
-    const safety = setTimeout(() => setVideoEnded(true), 6000);
+    // iOS zahtevi
+    v.muted = true;
+    v.setAttribute("muted", "");
+    v.playsInline = true;
+    v.setAttribute("playsinline", "");
+    v.setAttribute("webkit-playsinline", "");
+
+    // Globalni guard – ako metadata nikad ne stignu
+    const metadataGuard = setTimeout(() => setVideoDone(true), 4000);
 
     const onLoadedMeta = () => {
-      // Ugasiti safety – sad znamo trajanje
-      clearTimeout(safety);
+      clearTimeout(metadataGuard);
 
       const dur = Number.isFinite(v.duration) && v.duration > 0 ? v.duration : 3.5;
 
-      // Fallback “završi posle trajanja + 150ms”
-      const t1 = setTimeout(() => setVideoEnded(true), dur * 1000 + 150);
+      // Ako ended ne dođe
+      const endGuard = setTimeout(() => setVideoDone(true), dur * 1000 + 180);
+      // Tvrdi guard da nikad ne zaglavi
+      const hardGuard = setTimeout(() => setVideoDone(true), 12000);
 
-      // Dodatni “never stuck” fallback (npr. ended ne stigne) – 12s
-      const t2 = setTimeout(() => setVideoEnded(true), 12000);
-
-      // Probaj da pustiš
       v.play().catch(() => {
-        // ako autoplay padne, i dalje imamo t1/t2
+        // iOS ponekad odbije autoplay; guardovi će odraditi posao
       });
 
-      const onEnded = () => {
-        setVideoEnded(true);
-        clearTimeout(t1);
-        clearTimeout(t2);
+      const finish = () => {
+        setVideoDone(true);
+        clearTimeout(endGuard);
+        clearTimeout(hardGuard);
       };
 
-      v.addEventListener("ended", onEnded, { once: true });
+      v.addEventListener("ended", finish, { once: true });
 
-      // clean
+      const fail = () => finish();
+      v.addEventListener("error", fail, { once: true });
+      v.addEventListener("stalled", fail, { once: true });
+      v.addEventListener("abort", fail, { once: true });
+      v.addEventListener("emptied", fail, { once: true });
+      v.addEventListener("suspend", fail, { once: true });
+
       return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-        v.removeEventListener("ended", onEnded);
+        v.removeEventListener("ended", finish);
+        v.removeEventListener("error", fail);
+        v.removeEventListener("stalled", fail);
+        v.removeEventListener("abort", fail);
+        v.removeEventListener("emptied", fail);
+        v.removeEventListener("suspend", fail);
+        clearTimeout(endGuard);
+        clearTimeout(hardGuard);
       };
     };
 
-    const onErrorLike = () => {
-      // Ako je greška/stall/abort – odmah skloni preloader
-      setVideoEnded(true);
-      clearTimeout(safety);
-    };
-
-    const onCanPlay = () => {
-      // Na nekim iOS buildovima canplay dođe pre loadedmetadata
-      // pa probaj play() i tu
-      v.play().catch(() => {});
-    };
-
-    // Listeners
-    v.addEventListener("loadedmetadata", onLoadedMeta, { once: true });
-    v.addEventListener("canplay", onCanPlay);
-    v.addEventListener("error", onErrorLike);
-    v.addEventListener("stalled", onErrorLike);
-    v.addEventListener("abort", onErrorLike);
-    v.addEventListener("emptied", onErrorLike);
-
-    // Ako je metadata već tu (keš), ručno okini
+    // Ako su metapodaci već tu (keš)
     if (v.readyState >= 1) {
       const cleanup = onLoadedMeta();
-      // dodatno odmah probaj play
-      v.play().catch(() => {});
       return () => {
-        clearTimeout(safety);
+        clearTimeout(metadataGuard);
         cleanup && cleanup();
-        v.removeEventListener("canplay", onCanPlay);
-        v.removeEventListener("error", onErrorLike);
-        v.removeEventListener("stalled", onErrorLike);
-        v.removeEventListener("abort", onErrorLike);
-        v.removeEventListener("emptied", onErrorLike);
+      };
+    } else {
+      v.addEventListener("loadedmetadata", onLoadedMeta, { once: true });
+      return () => {
+        clearTimeout(metadataGuard);
+        v.removeEventListener("loadedmetadata", onLoadedMeta);
       };
     }
+  }, [src]);
 
-    // cleanup
-    return () => {
-      clearTimeout(safety);
-      v.removeEventListener("loadedmetadata", onLoadedMeta);
-      v.removeEventListener("canplay", onCanPlay);
-      v.removeEventListener("error", onErrorLike);
-      v.removeEventListener("stalled", onErrorLike);
-      v.removeEventListener("abort", onErrorLike);
-      v.removeEventListener("emptied", onErrorLike);
-    };
-  }, []);
-
-  const canHide = pageLoaded && videoEnded;
+  const hide = pageLoaded && videoDone;
 
   return (
     <AnimatePresence>
-      {!canHide && (
+      {!hide && (
         <motion.div
           key="preloader"
           initial={{ opacity: 1 }}
@@ -118,20 +104,25 @@ export default function Preloader() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.35 }}
           className="fixed inset-0 z-[9999] grid place-items-center bg-white"
-          // Tap anywhere to skip (korisno na iOS ako autoplay omane)
-          onClick={() => setVideoEnded(true)}
+          onClick={() => setVideoDone(true)} // tap-to-skip kao fail-safe
         >
+          {/* 
+            MOBILNI: kvadrat ~78vw (manje od 100% širine)
+            DESKTOP: kao i ranije – max 60vh, proporcija videa
+          */}
           <video
+            key={src} // remount kad promeniš ?v=
             ref={videoRef}
-            // >>> KEŠ BUSTING: promeni verziju kad zameniš fajl istog imena
-            src="/loading-animation.mp4?v=2" 
-            className="max-h-[60vh] w-auto rounded-2xl shadow-xl"
+            src={src}
+            preload="auto"
             muted
             playsInline
-            preload="auto"
             autoPlay
-            // (opciono) poster da nema flash crnine
-            // poster="/images/loading-poster.jpg"
+            controls={false}
+            className="
+              w-[78vw] h-[78vw] object-contain rounded-2xl shadow-xl
+              sm:w-auto sm:h-auto sm:max-h-[60vh]
+            "
           />
         </motion.div>
       )}
