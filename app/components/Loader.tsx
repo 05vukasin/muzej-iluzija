@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Preloader() {
+export default function Loader() {
   const [pageLoaded, setPageLoaded] = useState(false);
   const [videoDone, setVideoDone] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Preloader from "./components/Preloader";
+import Loader from "./components/Loader";
 import { LanguageProvider } from "./context/LanguageContext";
 import ScrollToTop from "./ScrollToTop";
 import { axiforma } from "./fonts"; // import ostaje
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       {/* KLJUČNO: koristi axiforma.className umesto variable */}
       <body className={`${axiforma.className} bg-white text-primary overflow-x-hidden antialiased`}>
         <LanguageProvider>
-          <Preloader />
+          <Loader />
           <Navbar />
           <ScrollToTop />
           <main className="pt-16 w-full max-w-[100vw] overflow-x-hidden">{children}</main>
