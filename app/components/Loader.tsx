@@ -121,8 +121,8 @@ export default function Loader() {
             controlsList="nodownload noplaybackrate noremoteplayback"
           >
             {/* Ako /loading.H264 nije upotrebljiv u browseru, pada na MP4 fallback */}
-            <source src="/loading.H264" type='video/mp4; codecs="avc1.42E01E"' />
-            <source src="/loading.mp4" type="video/mp4" />
+            
+            <source src="/loading-animation.mp4" type="video/mp4" />
           </video>
         </motion.div>
       )}
