@@ -1,7 +1,7 @@
 // components/Navbar.tsx
 "use client";
 
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,23 +12,68 @@ const links = [
   { nameSr: "Kontakt", nameEn: "Contact", href: "/contact" },
   { nameSr: "Cenovnik", nameEn: "Pricing", href: "/pricing" },
   { nameSr: "Iluzije", nameEn: "Illusions", href: "/illusions" },
-];
+] as const;
 
 export default function Navbar() {
   const { language, setLanguage } = useContext(LanguageContext);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
+  const scrollYRef = useRef(0);
 
+  // Header stil na scroll
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Body lock (bez skrolovanja pozadine na mobilnom/desktopu)
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "auto";
+    const html = document.documentElement;
+    const body = document.body;
+
+    const lock = () => {
+      scrollYRef.current = window.scrollY || 0;
+      html.style.scrollBehavior = "auto";
+      body.style.position = "fixed";
+      body.style.top = `-${scrollYRef.current}px`;
+      body.style.left = "0";
+      body.style.right = "0";
+      body.style.width = "100%";
+      body.style.overflow = "hidden";
+    };
+
+    const unlock = () => {
+      const y = -parseInt(body.style.top || "0", 10) || 0;
+      body.style.position = "";
+      body.style.top = "";
+      body.style.left = "";
+      body.style.right = "";
+      body.style.width = "";
+      body.style.overflow = "";
+      window.scrollTo(0, y);
+      html.style.scrollBehavior = "";
+    };
+
+    if (menuOpen) lock();
+    else unlock();
+
+    return () => {
+      // safety unmount
+      if (document.body.style.position === "fixed") unlock();
+    };
+  }, [menuOpen]);
+
+  // Escape zatvara meni
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
   const navigateTo = (href: string) => {
@@ -41,21 +86,15 @@ export default function Navbar() {
   return (
     <header
       className={[
-        "fixed top-0 left-0 w-full z-[60] transition-all", // ↑ header iznad slide-overa
+        "fixed top-0 left-0 w-full z-[60] transition-all",
         "backdrop-blur-xl border-b",
-        scrolled
-          ? "bg-white/80 border-black/10 shadow-md"
-          : "bg-white/60 border-black/10",
+        scrolled ? "bg-white/80 border-black/10 shadow-md" : "bg-white/60 border-black/10",
       ].join(" ")}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14 md:h-16 items-center justify-between">
-          {/* Logo: manji na telefonu, veći na desktopu */}
-          <button
-            onClick={() => navigateTo("/#home")}
-            aria-label="Go home"
-            className="shrink-0"
-          >
+          {/* Logo */}
+          <button onClick={() => navigateTo("/#home")} aria-label="Go home" className="shrink-0">
             <Image
               src="/images/logo-colors.png"
               alt="Logo"
@@ -85,11 +124,7 @@ export default function Navbar() {
               aria-label="Toggle language"
             >
               <Image
-                src={
-                  language === "sr"
-                    ? "/images/uk-flag.png"
-                    : "/images/serbia-flag.png"
-                }
+                src={language === "sr" ? "/images/uk-flag.png" : "/images/serbia-flag.png"}
                 alt={language === "sr" ? "English" : "Srpski"}
                 width={16}
                 height={12}
@@ -101,34 +136,23 @@ export default function Navbar() {
 
           {/* Mobile: jezik + hamburger */}
           <div className="md:hidden flex items-center gap-2">
-            {/* Jezik (mobilni) sa zastavom PNG */}
             <button
               onClick={changeLanguage}
-              aria-label={
-                language === "sr" ? "Switch to English" : "Prebaci na srpski"
-              }
+              aria-label={language === "sr" ? "Switch to English" : "Prebaci na srpski"}
               className="flex items-center gap-1 rounded-full border border-black/10 bg-white/70 shadow-sm px-2.5 py-1.5"
-              title={
-                language === "sr" ? "Switch to English" : "Prebaci na srpski"
-              }
+              title={language === "sr" ? "Switch to English" : "Prebaci na srpski"}
             >
               <Image
-                src={
-                  language === "sr"
-                    ? "/images/uk-flag.png"
-                    : "/images/serbia-flag.png"
-                }
+                src={language === "sr" ? "/images/uk-flag.png" : "/images/serbia-flag.png"}
                 alt={language === "sr" ? "English" : "Srpski"}
                 width={18}
                 height={12}
                 className="h-3.5 w-auto"
               />
-              <span className="text-xs text-primary">
-                {language === "sr" ? "EN" : "SR"}
-              </span>
+              <span className="text-xs text-primary">{language === "sr" ? "EN" : "SR"}</span>
             </button>
 
-            {/* SVG hamburger sa animacijom — uvek iznad slide-overa */}
+            {/* Hamburger */}
             <label className="hamburger z-[70]" aria-label="Open menu">
               <input
                 type="checkbox"
@@ -150,7 +174,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile slide-over meni: FULL SCREEN, beo, centriran; ulazi s desna */}
+      {/* Mobile slide-over meni */}
       <AnimatePresence>
         {menuOpen && (
           <motion.aside
@@ -161,17 +185,18 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="fixed inset-0 w-screen h-screen z-[50] bg-white md:hidden"
+            className="fixed inset-0 w-screen h-screen z-[50] bg-white md:hidden overflow-y-auto overscroll-contain"
           >
             <div className="mx-auto flex h-full max-w-7xl flex-col justify-between">
-              {/* Linkovi sa border-bottom */}
+              {/* Linkovi */}
               <div className="flex flex-col items-center justify-center flex-1 w-full px-6">
                 {links.map((item, idx) => (
                   <button
                     key={item.href}
                     onClick={() => navigateTo(item.href)}
-                    className={`w-full text-center text-2xl text-primary hover:text-accent-2 font-semibold py-4 
-                ${idx < links.length ? "border-b border-gray-200" : ""}`}
+                    className={`w-full text-center text-2xl text-primary hover:text-accent-2 font-semibold py-4 ${
+                      idx < links.length - 1 ? "border-b border-gray-200" : ""
+                    }`}
                   >
                     {language === "sr" ? item.nameSr : item.nameEn}
                   </button>
@@ -183,11 +208,7 @@ export default function Navbar() {
                   className="mt-6 flex items-center gap-2 rounded-full border border-black/10 px-4 py-2 text-primary hover:bg-accent-1/60"
                 >
                   <Image
-                    src={
-                      language === "sr"
-                        ? "/images/uk-flag.png"
-                        : "/images/serbia-flag.png"
-                    }
+                    src={language === "sr" ? "/images/uk-flag.png" : "/images/serbia-flag.png"}
                     alt={language === "sr" ? "English" : "Srpski"}
                     width={20}
                     height={14}
@@ -195,13 +216,14 @@ export default function Navbar() {
                   />
                   {language === "sr" ? "SR → EN" : "EN → SR"}
                 </button>
-                {/* Linija + Logo na dnu */}
               </div>
+
+              {/* Logo na dnu */}
               <div className="w-full border-t border-gray-300 py-4 pb-20 flex justify-center">
                 <Image
                   src="/images/logo-colors.png"
                   alt="Logo footer"
-                  width={200} // fallback vrednost
+                  width={200}
                   height={70}
                   className="w-[80%] max-w-[280px] h-auto object-contain"
                 />
@@ -233,7 +255,7 @@ export default function Navbar() {
         }
         .line {
           fill: none;
-          stroke: var(--color-primary);
+          stroke: var(--color-primary, #111827); /* fallback ako var nije definisan */
           stroke-linecap: round;
           stroke-linejoin: round;
           stroke-width: 3;
