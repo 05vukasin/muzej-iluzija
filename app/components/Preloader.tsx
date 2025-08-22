@@ -124,7 +124,7 @@ export default function Preloader() {
           <video
             ref={videoRef}
             // >>> KEŠ BUSTING: promeni verziju kad zameniš fajl istog imena
-            src="/loading.mp4?v=2" 
+            src="/loading-animation.mp4?v=2" 
             className="max-h-[60vh] w-auto rounded-2xl shadow-xl"
             muted
             playsInline
