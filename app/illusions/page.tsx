@@ -60,12 +60,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/after-image.jpg",
   },
   {
-    slug: "kada-svetlo-vara-tvoje-oci",
+    slug: "light-tricks",
     category: "color",
     emoji: "🔳",
     titleSr: "Kada svetlo vara tvoje oči",
     titleEn: "When Light Tricks Your Eyes",
-    img: "/images/illusions/kada-svetlo-vara.jpg",
+    img: "/images/illusions/light-tricks.jpg",
   },
   {
     slug: "varljiva-haljina",
