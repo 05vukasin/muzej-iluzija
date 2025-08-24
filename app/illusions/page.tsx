@@ -52,7 +52,7 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/color-mixing.jpg",
   },
   {
-    slug: "iluzija-naknadne-slike",
+    slug: "after-image",
     category: "color",
     emoji: "💡",
     titleSr: "Iluzija naknadne slike",
