@@ -68,12 +68,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/light-tricks.jpg",
   },
   {
-    slug: "varljiva-haljina",
+    slug: "lying-dress",
     category: "color",
     emoji: "👗",
     titleSr: "Varljiva haljina",
     titleEn: "The Dress Illusion",
-    img: "/images/illusions/varljiva-haljina.jpg",
+    img: "/images/illusions/lying-dress.jpg",
   },
 
   // Motion
