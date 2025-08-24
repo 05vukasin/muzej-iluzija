@@ -44,7 +44,7 @@ const CATEGORIES: readonly Category[] = [
 const ILLUSIONS: readonly Illusion[] = [
   // Color & Light
   {
-    slug: "igra-mesanja-boja",
+    slug: "color-mixing-game",
     category: "color",
     emoji: "🎨",
     titleSr: "Igra mešanja boja",
