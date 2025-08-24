@@ -42,7 +42,7 @@ export default function Illusion() {
     note: isSr
       ? "Savet: Uključi „Izoluj“ da potvrdiš da su kvadrati zaista iste boje."
       : "Tip: Turn on “Isolate” to verify the squares are truly identical.",
-    identical: isSr ? "Oba kvadrata: L=" : "Both squares: L=",
+    identical: isSr ? "Oba kvadrata: " : "Both squares: ",
     percent: isSr ? "%" : "%",
   };
 
@@ -91,7 +91,7 @@ export default function Illusion() {
         {/* Svetlina kvadrata */}
         <Control
           labelLeft={t.squaresLabel}
-          labelRight={`L=${squareL}${t.percent}`}
+          labelRight={`${squareL}${t.percent}`}
           input={
             <input
               type="range"
