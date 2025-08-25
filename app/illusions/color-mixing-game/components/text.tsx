@@ -12,10 +12,9 @@ export default function TextBlock() {
   const t = {
     cat: isSr ? "Iluzije boje i svetla" : "Color & Light",
     title: isSr ? "Igra mešanja boja" : "Color Mixing Game",
-    intro:
-      isSr
-        ? "U ovom eksperimentu porediš hemijsko i fizičko (optičko) mešanje boja. Kada boje pomešaš kao tempere — dobiješ novu boju na papiru. Kada se boje samo brzo smenjuju, oko i mozak ih „spajaju“ u drugačiju nijansu, bez stvarnog mešanja."
-        : "Compare chemical versus physical (optical) color mixing. Paint mixing creates a new pigment, while fast alternation makes your eyes and brain ‘fuse’ colors into a different shade without actual mixing.",
+    intro: isSr
+      ? "U ovom eksperimentu porediš hemijsko i fizičko (optičko) mešanje boja. Kada boje pomešaš kao tempere — dobiješ novu boju na papiru. Kada se boje samo brzo smenjuju, oko i mozak ih „spajaju“ u drugačiju nijansu, bez stvarnog mešanja."
+      : "Compare chemical versus physical (optical) color mixing. Paint mixing creates a new pigment, while fast alternation makes your eyes and brain ‘fuse’ colors into a different shade without actual mixing.",
     materialsTitle: isSr ? "Materijal" : "Materials",
     materials: isSr
       ? [
@@ -40,7 +39,9 @@ export default function TextBlock() {
     makeDiscsSteps: isSr
       ? ["Nacrtaj dva kruga prečnika 10–15 cm.", "Pažljivo ih iseci."]
       : ["Draw two circles 10–15 cm in diameter.", "Cut them out carefully."],
-    exp1: isSr ? "Eksperiment 1: Hemijsko mešanje boja" : "Experiment 1: Chemical mixing",
+    exp1: isSr
+      ? "Eksperiment 1: Hemijsko mešanje boja"
+      : "Experiment 1: Chemical mixing",
     exp1Steps: isSr
       ? [
           "Prvi krug podeli na dve polovine.",
@@ -54,7 +55,9 @@ export default function TextBlock() {
           "Blend at the boundary.",
           "Observe: usually green — a new pigment created by physical mixing.",
         ],
-    exp2: isSr ? "Eksperiment 2: Fizičko (optičko) mešanje" : "Experiment 2: Physical (optical) mixing",
+    exp2: isSr
+      ? "Eksperiment 2: Fizičko (optičko) mešanje"
+      : "Experiment 2: Physical (optical) mixing",
     exp2Steps: isSr
       ? [
           "Drugi krug podeli na 8–12 segmenata.",
@@ -89,28 +92,32 @@ export default function TextBlock() {
 
   return (
     <div className="rounded-2xl bg-black/65 backdrop-blur-md text-white shadow-2xl ring-1 ring-white/10 p-6 sm:p-8 lg:p-10">
-      {/* Header */}
-      <div className="flex items-start justify-between gap-5">
-        <div className="flex-1">
-          <p className="text-xs uppercase tracking-wider text-white/70">{t.cat}</p>
-          <h1 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black tracking-tight">
-            {t.title} <span className="align-middle">🎨</span>
-          </h1>
-          <p className="mt-3 text-white/90 leading-relaxed">{t.intro}</p>
-        </div>
+      {/* Header (slika u desnom ćošku, tekst se wrap-uje oko nje) */}
+<div className="relative after:content-[''] after:block after:clear-both">
+  {/* thumbnail desno gore */}
+  <div
+    className="
+      relative float-right shrink-0 ml-4 mb-2
+      w-24 h-24 sm:w-40 sm:h-28 md:w-48 md:h-32
+      rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl
+    "
+  >
+    <Image
+      src="/images/illusions/color-mixing.jpg"
+      alt={isSr ? "Kada svetlo vara tvoje oči" : "When Light Tricks Your Eyes"}
+      fill
+      className="object-cover select-none"
+      priority
+    />
+    <span className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.16),transparent_55%)]" />
+  </div>
 
-        {/* mala ilustracija desno */}
-        <div className="relative shrink-0 rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl w-[90px] h-[90px] sm:w-[180px] sm:h-[120px]">
-          <Image
-            src="/images/illusions/color-mixing.jpg"
-            alt={isSr ? "Igra mešanja boja" : "Color mixing game"}
-            fill
-            className="object-cover"
-            priority
-          />
-          <span className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.16),transparent_55%)]" />
-        </div>
-      </div>
+  <p className="text-xs uppercase tracking-wider text-white/70">{t.cat}</p>
+  <h1 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black tracking-tight">
+    {t.title} <span className="align-middle">🎨</span>
+  </h1>
+  <p className="mt-3 text-white/90 leading-relaxed">{t.intro}</p>
+</div>
 
       {/* Sadržaj */}
       <div className="mt-8 grid lg:grid-cols-2 gap-8">

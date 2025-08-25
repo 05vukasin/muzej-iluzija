@@ -69,27 +69,37 @@ export default function TextBlock() {
 
   return (
     <div className="rounded-2xl bg-black/65 backdrop-blur-md text-white shadow-2xl ring-1 ring-white/10 p-6 sm:p-8 lg:p-10">
-      {/* Header */}
-      <div className="flex items-start justify-between gap-5">
-        <div className="flex-1">
-          <p className="text-xs uppercase tracking-wider text-white/70">{t.cat}</p>
-          <h1 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black tracking-tight">
-            {t.title} <span className="align-middle">🔳</span>
-          </h1>
-          <p className="mt-3 text-white/90 leading-relaxed">{t.intro}</p>
-        </div>
-
-        {/* ilustracija desno (manja na mobilnom) */}
-        <div className="relative shrink-0 rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl w-[90px] h-[90px] sm:w-[180px] sm:h-[120px]">
+      {/* Header (slika u desnom ćošku, tekst se wrap-uje oko nje) */}
+      <div className="relative after:content-[''] after:block after:clear-both">
+        {/* thumbnail desno gore */}
+        <div
+          className="
+      relative float-right shrink-0 ml-4 mb-2
+      w-24 h-24 sm:w-40 sm:h-28 md:w-48 md:h-32
+      rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl
+    "
+        >
           <Image
             src="/images/illusions/light-tricks.jpg"
-            alt={isSr ? "Kada svetlo vara tvoje oči" : "When Light Tricks Your Eyes"}
+            alt={
+              isSr
+                ? "Kada svetlo vara tvoje oči"
+                : "When Light Tricks Your Eyes"
+            }
             fill
-            className="object-cover"
+            className="object-cover select-none"
             priority
           />
           <span className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.16),transparent_55%)]" />
         </div>
+
+        <p className="text-xs uppercase tracking-wider text-white/70">
+          {t.cat}
+        </p>
+        <h1 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black tracking-tight">
+          {t.title} <span className="align-middle">🔳</span>
+        </h1>
+        <p className="mt-3 text-white/90 leading-relaxed">{t.intro}</p>
       </div>
 
       {/* Sadržaj */}

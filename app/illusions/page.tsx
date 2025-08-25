@@ -78,12 +78,12 @@ const ILLUSIONS: readonly Illusion[] = [
 
   // Motion
   {
-    slug: "oci-koje-te-prate",
+    slug: "eyes-that-follow",
     category: "motion",
     emoji: "👁️",
     titleSr: "Oči koje te prate",
     titleEn: "Eyes That Follow You",
-    img: "/images/illusions/oci-prate.jpg",
+    img: "/images/illusions/eyes-that-follow.jpg",
   },
   {
     slug: "spiralni-pokreti",
