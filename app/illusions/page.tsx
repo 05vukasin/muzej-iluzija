@@ -86,12 +86,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/eyes-that-follow.jpg",
   },
   {
-    slug: "spiralni-pokreti",
+    slug: "spiral-movement",
     category: "motion",
     emoji: "🌀",
     titleSr: "Spiralni pokreti",
     titleEn: "Spiral Motion",
-    img: "/images/illusions/spiralni-pokreti.jpg",
+    img: "/images/illusions/spiral-movement.jpg",
   },
   {
     slug: "varljivo-prstenje",

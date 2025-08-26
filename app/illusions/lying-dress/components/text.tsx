@@ -64,6 +64,7 @@ export default function TextBlock() {
       ? "Mozak pokušava da proceni izvor svetla: hladna LED osvetljenost (plav ton) ili toplo sunčevo svetlo (žut ton). Na osnovu pretpostavke kompenzuje boje da “ispravi” scenu — zato neki vide crno–plavo (odbacuje plavu), a drugi zlatno–belo (odbacuje žutu)."
       : "Your brain infers the light source: cool LEDs (bluish) or warm sunlight (yellowish). It then compensates to “correct” the scene — hence some see black–blue (discounting blue) while others see white–gold (discounting yellow).",
     back: isSr ? "Nazad na iluzije" : "Back to Illusions",
+    ask: isSr ? "Pitaj nas bilo šta" : "Ask us anything",
   };
 
   return (
@@ -135,12 +136,18 @@ export default function TextBlock() {
       </div>
 
       {/* CTA */}
-      <div className="mt-8">
+      <div className="mt-8 flex flex-wrap items-center gap-3">
         <Link
           href="/illusions"
           className="rounded-full bg-brand-235 text-white px-5 py-2.5 font-semibold hover:brightness-110 transition"
         >
           {t.back}
+        </Link>
+        <Link
+          href="/contact"
+          className="rounded-full border border-white/20 text-white px-5 py-2.5 hover:bg-white/10 transition"
+        >
+          {t.ask}
         </Link>
       </div>
     </div>

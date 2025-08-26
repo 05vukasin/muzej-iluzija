@@ -11,56 +11,64 @@ export default function TextBlock() {
 
   const t = {
     cat: isSr ? "Iluzije pokreta" : "Motion Illusions",
-    title: isSr ? "Oči koje te prate" : "Eyes That Follow You",
+    title: isSr ? "Spiralni pokreti" : "Spiral Motion",
     intro: isSr
-      ? "Iako oči uopšte nisu pokretne, imaćeš snažan utisak da te prate dok se krećeš levo, desno ili gore–dole. Iluzija koristi trik sa konkavnošću (obrnutom 3D dubinom) da prevari mozak."
-      : "Even though the eyes don’t move, you’ll feel like they follow you as you move around. The illusion exploits concavity (reversed depth) to fool the brain.",
+      ? "Nakon nekoliko sekundi gledanja u rotirajuću spiralu, statične slike deluju kao da se šire ili skupljaju — tipičan naknadni efekat pokreta (motion aftereffect)."
+      : "After staring at a rotating spiral, static images appear to expand or contract — a classic motion aftereffect.",
     needTitle: isSr ? "Šta ti je potrebno" : "What you need",
     need: isSr
       ? [
-          "Odštampan lik sa izraženim očima (fotografija/ilustracija)",
-          "Providna plastična flaša (1.5–2L), glatka",
-          "Makaze ili skalpel",
+          "Papir (A4 ili veći)",
+          "Crni flomaster ili debela hemijska",
+          "Makaze",
           "Lepljiva traka ili lepak",
-          "Papir za postavljanje",
+          "Karton (za učvršćivanje)",
+          "Čioda / drveni štapić / olovka za okretanje",
+          "Slika lica ili jednostavna statična slika",
         ]
       : [
-          "A printed face with clear eyes (photo/illustration)",
-          "A smooth plastic bottle (1.5–2L)",
-          "Scissors or a craft knife",
+          "Paper (A4 or larger)",
+          "Black marker / thick pen",
+          "Scissors",
           "Tape or glue",
-          "Paper backing",
+          "Cardboard backing",
+          "Pin / stick / pencil to spin",
+          "A face photo or any simple static image",
         ],
-    makeTitle: isSr ? "Napravi iluziju" : "Build the illusion",
-    makeSteps: isSr
+    buildTitle: isSr ? "Napravi iluziju" : "Build the illusion",
+    build: isSr
       ? [
-          "Izdvoji oči: iseci pravougaonik sa očima sa odštampanog lica.",
-          "Pripremi konkavni komad plastike (unutrašnja strana flaše 'gleda' ka tebi).",
-          "Zalepi papir sa očima s unutrašnje strane plastike, da prati udubljenje.",
-          "Postavi na sto ili zid i fiksiraj trakom/lepkom.",
+          "Nacrtaj spiralni oblik (ili odštampaj gotovu šaru).",
+          "Zalepi spiralu na karton da bude čvrsta.",
+          "Probodi centar i obezbedi da se lako okreće.",
+          "Gledaj 20–30 sekundi u centar dok ravnomerno rotira.",
+          "Odmah potom pogledaj statičnu sliku — delovaće kao da se uvija.",
         ]
       : [
-          "Cut out a rectangle containing the eyes from a printed face.",
-          "Prepare a concave plastic piece (the bottle’s inside facing you).",
-          "Tape the eyes to the inside so they follow the curvature.",
-          "Place it upright on a table or wall and fix with tape/glue.",
+          "Draw a spiral (or print a ready pattern).",
+          "Mount it on cardboard for rigidity.",
+          "Pierce the center so it spins freely.",
+          "Fixate the center for 20–30 seconds during rotation.",
+          "Then switch to a static picture—it will seem to warp.",
         ],
     tryTitle: isSr ? "Eksperimentiši dalje" : "Try more",
     try: isSr
       ? [
-          "Pomeri se levo–desno i gore–dole — da li te oči prate?",
-          "Probaj fotografiju vs. crtež — da li je efekat jači kod jednog?",
-          "Uključi druge: da li svi doživljavaju isti intenzitet iluzije?",
+          "Okreći u suprotnom smeru i uporedi efekat.",
+          "Produži vreme posmatranja — hoće li duže trajati?",
+          "Menjaj brzinu rotacije.",
+          "Proveri utisak na sopstvenim crtežima ili licu u ogledalu.",
         ]
       : [
-          "Move left–right and up–down — do the eyes follow you?",
-          "Compare drawing vs. photo — which is stronger?",
-          "Ask others: do they experience the illusion equally?",
+          "Spin in the opposite direction and compare.",
+          "Increase viewing time—does it last longer?",
+          "Vary the rotation speed.",
+          "Try it on your drawings or your face in a mirror.",
         ],
-    whyTitle: isSr ? "Zašto se to dešava?" : "Why does this happen?",
-    whyText: isSr
-      ? "Mozak očekuje ispupčena lica (to je ono što najčešće viđa), pa kod konkavne geometrije ‘prepravlja’ dubinu kao da je ispupčena. Uz fiksni pogled očiju, dobijaš utisak praćenja dok se ti krećeš — reverzija dubine."
-      : "Your brain expects convex faces; with concave geometry it ‘flips’ depth to convex. With fixed gazing eyes, this produces a following effect as you move — a depth reversal.",
+    whyTitle: isSr ? "Zašto se to dešava?" : "Why does it happen?",
+    why: isSr
+      ? "Neuroni za detekciju pokreta se privremeno zasite kontinuiranim smerom rotacije. Kada pređeš na statičnu sliku, sistem „očekuje“ obrnuti pokret, pa nastaje iluzorni osećaj uvijanja/širenja — naknadni efekat pokreta."
+      : "Motion-sensitive neurons adapt to the continuous rotation. When you switch to a static image, the system ‘expects’ opposite motion, producing illusory warping/expansion—the motion aftereffect.",
     back: isSr ? "Nazad na iluzije" : "Back to Illusions",
     ask: isSr ? "Pitaj nas bilo šta" : "Ask us anything",
   };
@@ -69,16 +77,17 @@ export default function TextBlock() {
     <div className="rounded-2xl bg-black/65 backdrop-blur-md text-white shadow-2xl ring-1 ring-white/10 p-6 sm:p-8 lg:p-10">
       {/* Header (slika u desnom ćošku, tekst wrap oko nje) */}
       <div className="relative after:content-[''] after:block after:clear-both">
+        {/* thumbnail desno gore */}
         <div
           className="
             relative float-right shrink-0 ml-4 mb-2
-            w-24 h-24 sm:w-40 sm:h-28 md:w-48 md:h-32
+            w-24 h-24 sm:w-40 sm:h-40 md:w-48 md:h-48
             rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl
           "
         >
           <Image
-            src="/images/illusions/eyes-that-follow.jpg"
-            alt={isSr ? "Oči koje te prate" : "Eyes that follow"}
+            src="/images/illusions/spiral-movement-illusion.jpg"
+            alt={isSr ? "Spiralni pokreti" : "Spiral Motion"}
             fill
             className="object-cover select-none"
             priority
@@ -86,9 +95,11 @@ export default function TextBlock() {
           <span className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.16),transparent_55%)]" />
         </div>
 
-        <p className="text-xs uppercase tracking-wider text-white/70">{t.cat}</p>
+        <p className="text-xs uppercase tracking-wider text-white/70">
+          {t.cat}
+        </p>
         <h1 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black tracking-tight">
-          {t.title} <span className="align-middle">👁️</span>
+          {t.title} <span className="align-middle">🌀</span>
         </h1>
         <p className="mt-3 text-white/90 leading-relaxed">{t.intro}</p>
       </div>
@@ -106,9 +117,9 @@ export default function TextBlock() {
             ))}
           </ul>
 
-          <h3 className="mt-6 font-semibold">{t.makeTitle}</h3>
+          <h3 className="mt-6 font-semibold">{t.buildTitle}</h3>
           <ol className="mt-2 space-y-2 list-decimal list-inside text-white/90">
-            {t.makeSteps.map((s, i) => (
+            {t.build.map((s, i) => (
               <li key={i}>{s}</li>
             ))}
           </ol>
@@ -116,7 +127,7 @@ export default function TextBlock() {
 
         <div>
           <h2 className="text-xl font-semibold">{t.whyTitle}</h2>
-          <p className="mt-2 text-white/90 leading-relaxed">{t.whyText}</p>
+          <p className="mt-2 text-white/90 leading-relaxed">{t.why}</p>
 
           <h2 className="mt-6 text-xl font-semibold">{t.tryTitle}</h2>
           <ul className="mt-2 space-y-2 text-white/90">
