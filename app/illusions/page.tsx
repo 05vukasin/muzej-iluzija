@@ -110,12 +110,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/stepping-feet.jpg",
   },
   {
-    slug: "iluzija-lebdeceg-kruga",
+    slug: "floating-circle",
     category: "motion",
     emoji: "🔘",
     titleSr: "Iluzija lebdećeg kruga",
     titleEn: "Floating Circle Illusion",
-    img: "/images/illusions/lebdeci-krug.jpg",
+    img: "/images/illusions/floating-circle.jpg",
   },
 
   // Space

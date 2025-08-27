@@ -13,7 +13,7 @@ export default function Illusion() {
     lead: isSr
       ? "Dve trake iste brzine izgledaju kao da se kreću različitim ritmom — kao da jedna korača, a druga klizi."
       : "Two equal-speed bars appear to move at different rhythms — one ‘steps’ while the other glides.",
-    speed: isSr ? "Brzina (po koraku)" : "Speed (per step)",
+    speed: isSr ? "Vreme (po koraku)" : "Time (per step)",
     pause: isSr ? "Pauza između koraka" : "Pause between steps",
     yellow: isSr ? "Tamnina žute" : "Yellow darkness",
     blue: isSr ? "Tamnina plave" : "Blue darkness",
