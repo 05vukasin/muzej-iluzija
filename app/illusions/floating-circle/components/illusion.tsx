@@ -41,8 +41,8 @@ export default function Illusion() {
 
   // target (cilj draga), glatko praćenje kruga i posebno glatko praćenje polja izobličenja
   const targetRef = useRef<{ cx: number; cy: number }>({
-    cx: w * 0.5,
-    cy: h * 0.55,
+    cx: w * 0.2,
+    cy: h * 0.25,
   });
 
   const [circle, setCircle] = useState<{ cx: number; cy: number; r: number }>({
