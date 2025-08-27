@@ -102,12 +102,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/deceiving-rings.jpg",
   },
   {
-    slug: "iluzija-koracanja",
+    slug: "stepping-feet",
     category: "motion",
     emoji: "🦶",
     titleSr: "Iluzija koračanja",
     titleEn: "Walking Illusion",
-    img: "/images/illusions/koracanje.jpg",
+    img: "/images/illusions/stepping-feet.jpg",
   },
   {
     slug: "iluzija-lebdeceg-kruga",
