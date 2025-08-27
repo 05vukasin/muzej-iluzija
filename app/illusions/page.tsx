@@ -94,12 +94,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/spiral-movement.jpg",
   },
   {
-    slug: "varljivo-prstenje",
+    slug: "deceiving-rings",
     category: "motion",
     emoji: "🔗",
     titleSr: "Varljivo prstenje",
     titleEn: "Deceiving Rings",
-    img: "/images/illusions/varljivo-prstenje.jpg",
+    img: "/images/illusions/deceiving-rings.jpg",
   },
   {
     slug: "iluzija-koracanja",
