@@ -99,7 +99,7 @@ export default function Illusion() {
 
   return (
     <div className="rounded-2xl bg-black/65 backdrop-blur-md text-white shadow-2xl ring-1 ring-white/10 p-6 sm:p-8 lg:p-10">
-      <h2 className="text-xl sm:text-2xl font-bold tracking-tight">🦶 {t.title}</h2>
+      <h2 className="text-xl sm:text-2xl font-bold tracking-tight">{t.title}</h2>
       <p className="mt-2 text-white/80">{t.lead}</p>
 
       {/* Platno (čisto crno-belo) */}
