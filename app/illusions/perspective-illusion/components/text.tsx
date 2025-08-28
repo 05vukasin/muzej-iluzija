@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useContext } from "react";
 import { LanguageContext } from "@/app/context/LanguageContext";
+import Image from "next/image";
 
 export default function TextBlock() {
   const { language } = useContext(LanguageContext);
@@ -70,74 +71,23 @@ export default function TextBlock() {
     <div className="rounded-2xl bg-black/65 backdrop-blur-md text-white shadow-2xl ring-1 ring-white/10 p-6 sm:p-8 lg:p-10">
       {/* Header (CSS thumbnail top-right, text wraps) */}
       <div className="relative after:content-[''] after:block after:clear-both">
-        {/* CSS thumbnail: „hodnik“ sa konvergencijom + dve identične figure */}
-        <div
-          className="
-            relative float-right shrink-0 ml-4 mb-2
-            w-24 h-24 sm:w-40 sm:h-28 md:w-48 md:h-32
-            rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl
-          "
-          aria-hidden="true"
-        >
-          {/* zidovi (konvergencija ka centru) */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04))",
-            }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              clipPath: "polygon(0% 100%, 40% 0%, 60% 0%, 100% 100%)",
-              background:
-                "repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 10px)",
-              transform: "translateZ(0)",
-            }}
-          />
-          {/* pod — trapez sa „fugama“ */}
-          <div
-            className="absolute left-1/2 bottom-0 -translate-x-1/2"
-            style={{
-              width: "140%",
-              height: "70%",
-              clipPath: "polygon(0% 100%, 20% 0%, 80% 0%, 100% 100%)",
-              background:
-                "repeating-linear-gradient(0deg, rgba(255,255,255,0.18) 0 2px, transparent 2px 12px)",
-              filter: "drop-shadow(0 8px 12px rgba(0,0,0,0.35))",
-            }}
-          />
-          {/* dve identične figure */}
-          <div
-            className="absolute"
-            style={{
-              bottom: "14%",
-              left: "30%",
-              width: "16%",
-              height: "28%",
-              background:
-                "repeating-linear-gradient(90deg, #60a5fa 0 3px, #3b82f6 3px 6px)",
-              borderRadius: 4,
-              boxShadow: "0 4px 8px rgba(0,0,0,.35)",
-            }}
-          />
-          <div
-            className="absolute"
-            style={{
-              bottom: "36%",
-              right: "24%",
-              width: "16%",
-              height: "28%",
-              background:
-                "repeating-linear-gradient(90deg, #fbbf24 0 3px, #f59e0b 3px 6px)",
-              borderRadius: 4,
-              boxShadow: "0 4px 8px rgba(0,0,0,.35)",
-            }}
-          />
-          <span className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.16),transparent_55%)]" />
-        </div>
-
+        {/* thumbnail desno gore */}
+                <div
+                  className="
+                    relative float-right shrink-0 ml-4 mb-2
+                    w-24 h-24 sm:w-40 sm:h-40 md:w-48 md:h-48
+                    rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl
+                  "
+                >
+                  <Image
+                    src="/images/illusions/perspective-illusion.jpg"
+                    alt={isSr ? "Iluzija perspektive" : "Perspective illusion"}
+                    fill
+                    className="object-cover select-none"
+                    priority
+                  />
+                  <span className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.16),transparent_55%)]" />
+                </div>
         <p className="text-xs uppercase tracking-wider text-white/70">
           {t.cat}
         </p>
