@@ -10,17 +10,18 @@ export default function Illusion() {
   const t = {
     title: isSr ? "Iluzija perspektive" : "Perspective Illusion",
     lead: isSr
-      ? "Obe figure su identične visine, ali ‘dalja’ izgleda većom zbog tragova perspektive. Uključi linije (grid) da lakše uporediš visine."
-      : "Both figures are identical in height, yet the ‘farther’ one looks bigger due to perspective cues. Turn on the grid to compare heights.",
+      ? "Obe figure su identične visine; tragovi perspektive čine da ‘dalja’ izgleda većom. Uključi ljubičaste vodoravne linije da lakše uporediš visine."
+      : "Both figures are identical in height; perspective cues make the ‘farther’ one look bigger. Turn on the purple horizontal guides to compare heights.",
     alt: isSr ? "Iluzija perspektive — GIF" : "Perspective illusion — GIF",
-    show: isSr ? "Prikaži linije" : "Show grid",
-    hide: isSr ? "Sakrij linije" : "Hide grid",
+    show: isSr ? "Prikaži linije" : "Show lines",
+    hide: isSr ? "Sakrij linije" : "Hide lines",
   };
 
-  // Četiri vertikalne vodilice (procenti širine GIF-a). Slobodno promeni vrednosti.
-  const guideXs = [0.18, 0.32, 0.68, 0.82]; // 18%, 32%, 68%, 82%
+  // ČETIRI HORIZONTALNE VODILICE — vrednosti su procenat visine (0..1).
+  // Slobodno promeni raspored po želji.
+  const guideYs = [0.16, 0.37, 0.72, 0.93];
 
-  const [showGrid, setShowGrid] = useState(false);
+  const [showLines, setShowLines] = useState(false);
 
   return (
     <div className="rounded-2xl bg-black/65 backdrop-blur-md text-white shadow-2xl ring-1 ring-white/10 p-6 sm:p-8 lg:p-10">
@@ -28,7 +29,6 @@ export default function Illusion() {
       <p className="mt-2 text-white/80">{t.lead}</p>
 
       <div className="mt-6 sm:mt-8 mx-auto w-full max-w-[900px]">
-        {/* Wrapper: centriramo sadržaj; visina figure je automatska po visini GIF-a */}
         <div className="w-full flex justify-center">
           <figure
             className="
@@ -37,7 +37,9 @@ export default function Illusion() {
             "
             aria-label={t.alt}
           >
-            {/* GIF: na mobu 100% širine, na desktopu auto širina + max visina */}
+            {/* GIF:
+               - Mobilni: w-full h-auto
+               - Desktop: širina auto, max visina ograničena da ne bude prevelik */}
             <img
               src="/images/illusions/perspective-illusion.gif"
               alt={t.alt}
@@ -48,53 +50,39 @@ export default function Illusion() {
               "
             />
 
-            {/* Vertikalne linije — uvek iznad GIF-a */}
-            {showGrid && (
+            {/* HORIZONTALNE LINIJE PREKO GIF-a */}
+            {showLines && (
               <div className="absolute inset-0 z-10 pointer-events-none">
-                {guideXs.map((gx, i) => (
+                {guideYs.map((gy, i) => (
                   <div
                     key={i}
-                    className="absolute top-0 bottom-0"
-                    style={{ left: `${gx * 100}%` }}
-                  >
-                    {/* sama linija */}
-                    <div
-                      className="h-full w-[2px] mx-[-1px]"
-                      style={{
-                        background: "rgba(255,255,255,0.95)",
-                        boxShadow:
-                          "0 0 0 1px rgba(0,0,0,0.3), 0 0 8px rgba(0,0,0,0.25)",
-                      }}
-                    />
-                    {/* male kapice gore/dole da bude jasnija visina */}
-                    <div
-                      className="absolute left-1/2 -translate-x-1/2 top-0 h-[10px] w-[8px] rounded-b"
-                      style={{ background: "rgba(255,255,255,0.95)" }}
-                    />
-                    <div
-                      className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[10px] w-[8px] rounded-t"
-                      style={{ background: "rgba(255,255,255,0.95)" }}
-                    />
-                  </div>
+                    className="absolute left-0 right-0"
+                    style={{
+                      top: `${gy * 100}%`,
+                      height: "2px",
+                      background: "rgb(168 85 247)", // purple-500
+                    }}
+                  />
                 ))}
               </div>
             )}
           </figure>
         </div>
 
-        {/* Dugme: ljubičasto kada su linije isključene (poziv da ih uključiš),
-           sivo kada su uključene (za isključivanje) */}
+        {/* Toggle dugme:
+            - Ljubičasto kada su linije ISKLJUČENE (poziv da ih uključiš)
+            - Sivo kada su linije UKLJUČENE (za isključivanje) */}
         <div className="mt-4 flex justify-center">
           <button
-            onClick={() => setShowGrid((v) => !v)}
+            onClick={() => setShowLines((v) => !v)}
             className={[
               "rounded-full px-4 py-2 font-semibold shadow-sm border transition",
-              showGrid
+              showLines
                 ? "bg-white/70 text-primary border-black/10 hover:bg-white/80"
                 : "bg-brand-235 text-white border-transparent hover:brightness-110",
             ].join(" ")}
           >
-            {showGrid ? t.hide : t.show}
+            {showLines ? t.hide : t.show}
           </button>
         </div>
       </div>
