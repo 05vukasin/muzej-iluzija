@@ -120,12 +120,12 @@ const ILLUSIONS: readonly Illusion[] = [
 
   // Space
   {
-    slug: "mini-ejmsova-soba",
+    slug: "mini-ames-room",
     category: "space",
     emoji: "🏠",
     titleSr: "Mini Ejmsova soba",
     titleEn: "Mini Ames Room",
-    img: "/images/illusions/mini-ames.jpg",
+    img: "/images/illusions/mini-ames-room.jpg",
   },
   {
     slug: "ejmsov-prozor",
