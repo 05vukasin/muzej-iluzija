@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
 import { LanguageContext } from "@/app/context/LanguageContext";
@@ -62,10 +63,25 @@ export default function TextBlock() {
           "Color the two faces differently — the illusion strengthens.",
           "Try larger sizes and one-sided lighting.",
         ],
+    dimsTitle: isSr ? "Predložene mere (u cm)" : "Suggested dimensions (cm)",
+    dims: isSr
+      ? [
+          "Donja stranica: 8",
+          "Gornja stranica: 4",
+          "Visina: 12",
+          "Preporučeno: nacrtaj 3–5 horizontalnih prečki unutar trapeza",
+        ]
+      : [
+          "Bottom edge: 8",
+          "Top edge: 4",
+          "Height: 12",
+          "Tip: draw 3–5 horizontal bars inside the trapezoid",
+        ],
+    diagramAlt: isSr ? "Ejmsov prozor — dijagram" : "Ames window — diagram",
     whyTitle: isSr ? "Zašto se to dešava?" : "Why does it happen?",
     whyText: isSr
       ? "Mozak očekuje pravougaonik, ne trapez. Pri rotaciji trapeza, vizuelni sistem pogrešno tumači oblik i perspektivu kao njihanje napred–nazad. Dodatni objekat u sredini pojačava konflikt — deluje kao da prolazi kroz „fiksnu” površinu, iako se sve samo geometrijski vara u vidnom polju."
-      : "Your brain expects a rectangle, not a trapezoid. As the trapezoid rotates, the visual system misreads shape and perspective as a back-and-forth rocking. An extra object through the center heightens the conflict — it seems to pass through a ‘solid’ surface, though it’s all a geometric trick.",
+      : "Your brain expects a rectangle, not a trapezoid. As the trapezoid rotates, the visual system misreads shape and perspective as back-and-forth rocking. An extra object through the center heightens the conflict—it seems to pass through a ‘solid’ surface, though it’s all a geometric trick.",
     back: isSr ? "Nazad na iluzije" : "Back to Illusions",
     ask: isSr ? "Pitaj nas bilo šta" : "Ask us anything",
   };
@@ -74,42 +90,29 @@ export default function TextBlock() {
     <div className="rounded-2xl bg-black/65 backdrop-blur-md text-white shadow-2xl ring-1 ring-white/10 p-6 sm:p-8 lg:p-10">
       {/* Header (CSS thumbnail at top-right, text wraps) */}
       <div className="relative after:content-[''] after:block after:clear-both">
-        {/* CSS thumbnail (trapezoid window) */}
         <div
           className="
-            relative float-right shrink-0 ml-4 mb-2
-            w-24 h-24 sm:w-40 sm:h-28 md:w-48 md:h-32
-            rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl
-          "
-          aria-hidden="true"
+    relative float-right shrink-0 ml-4 mb-2
+    w-24 h-24 sm:w-40 sm:h-28 md:w-48 md:h-32
+    rounded-xl overflow-hidden ring-1 ring-white/15 shadow-xl
+  "
         >
-          {/* Background wall */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.16),transparent_55%)]" />
-          {/* Trapezoid frame */}
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-            style={{
-              width: "70%",
-              height: "80%",
-              clipPath: "polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%)",
-              background: "#111",
-              boxShadow: "0 8px 18px rgba(0,0,0,.35), inset 0 0 0 2px rgba(255,255,255,.08)",
-            }}
-          >
-            {/* Inner bars */}
-            <div
-              className="absolute inset-[6%] rounded-[2px]"
-              style={{
-                background:
-                  "repeating-linear-gradient(0deg, rgba(255,255,255,.85) 0 2px, transparent 2px 10px)",
-              }}
-            />
-          </div>
+          <Image
+            src="/images/illusions/ames-window-cover.png"
+            alt={isSr ? "Ejmsov prozor" : "Ames Window"}
+            fill
+            priority
+            className="object-cover select-none"
+            sizes="(max-width: 768px) 30vw, 192px"
+          />
+          <span className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.16),transparent_55%)]" />
         </div>
 
-        <p className="text-xs uppercase tracking-wider text-white/70">{t.cat}</p>
+        <p className="text-xs uppercase tracking-wider text-white/70">
+          {t.cat}
+        </p>
         <h1 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black tracking-tight">
-          {t.title} <span className="align-middle">🪟</span>
+          {t.title} <span className="align-middle">⊞</span>
         </h1>
         <p className="mt-3 text-white/90 leading-relaxed">{t.intro}</p>
       </div>
@@ -148,6 +151,35 @@ export default function TextBlock() {
 
           <h2 className="mt-6 text-xl font-semibold">{t.whyTitle}</h2>
           <p className="mt-2 text-white/90 leading-relaxed">{t.whyText}</p>
+        </div>
+      </div>
+
+      {/* Dimensions + diagram — FULL card width */}
+      <div className="mt-8 w-full">
+        <div className="rounded-lg bg-white/5 p-4 ring-1 ring-white/10">
+          <p className="font-semibold">{t.dimsTitle}</p>
+          <div className="mt-3 grid gap-4 md:grid-cols-2">
+            <ul className="space-y-1 text-white/90">
+              {t.dims.map((d, i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-white/40" />
+                  <span>{d}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Diagram image */}
+            <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden ring-1 ring-white/10 bg-black/10">
+              <Image
+                src="/images/illusions/ames-window.png"
+                alt={t.diagramAlt}
+                fill
+                sizes="100vw"
+                className="object-contain"
+                priority
+              />
+            </div>
+          </div>
         </div>
       </div>
 
