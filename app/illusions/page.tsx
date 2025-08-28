@@ -144,12 +144,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/perspective-illusion.jpg",
   },
   {
-    slug: "iluzija-dubine",
+    slug: "depth-illusion",
     category: "space",
     emoji: "🌅",
     titleSr: "Iluzija dubine",
     titleEn: "Depth Illusion",
-    img: "/images/illusions/dubina.jpg",
+    img: "/images/illusions/depth-illusion.jpg",
   },
 
   // Shape

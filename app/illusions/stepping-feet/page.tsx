@@ -5,7 +5,7 @@ import Illusion from "./components/illusion";
 import TextBlock from "./components/text";
 import { FiArrowLeft } from "react-icons/fi";
 
-export default function TheDressPage() {
+export default function TheSteppingFeetPage() {
   return (
     <section className="relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
