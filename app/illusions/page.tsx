@@ -154,12 +154,12 @@ const ILLUSIONS: readonly Illusion[] = [
 
   // Shape
   {
-    slug: "zakrivljene-nejednake-linije",
+    slug: "curved-lines",
     category: "shape",
     emoji: "⌇",
     titleSr: "Zakrivljene (ne)jednake linije",
     titleEn: "Curved (Un)Equal Lines",
-    img: "/images/illusions/linije.jpg",
+    img: "/images/illusions/curved-lines.jpg",
   },
   {
     slug: "iluzija-sesira",
