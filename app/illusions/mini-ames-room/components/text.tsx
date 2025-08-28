@@ -93,6 +93,7 @@ export default function TextBlock() {
     whyText: isSr
       ? "Ejmsova soba namerno krši pravila prave perspektive. Iz tačno jedne tačke deluje regularno, pa mozak pretpostavlja paralelne zidove i prav uglove. Zbog te pogrešne pretpostavke objekti dalje izgledaju manji, iako su zapravo identične veličine."
       : "An Ames room deliberately breaks true perspective. From one fixed viewpoint it appears normal, so the brain assumes parallel walls and right angles. That false assumption makes distant objects look smaller—even though they’re identical in size.",
+    modelAlt: isSr ? "Model Mini Ejmsove sobe — dijagram" : "Mini Ames Room model — diagram",
     back: isSr ? "Nazad na iluzije" : "Back to Illusions",
     ask: isSr ? "Pitaj nas bilo šta" : "Ask us anything",
   };
@@ -145,19 +146,6 @@ export default function TextBlock() {
               <li key={i}>{s}</li>
             ))}
           </ol>
-
-          {/* Predložene mere (posebno, zbog preglednosti) */}
-          <div className="mt-4 rounded-lg bg-white/5 p-4 ring-1 ring-white/10">
-            <p className="font-semibold">{t.dimsTitle}</p>
-            <ul className="mt-2 space-y-1 text-white/90">
-              {t.dims.map((d, i) => (
-                <li key={i} className="flex gap-3">
-                  <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-white/40" />
-                  <span>{d}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         <div>
@@ -173,6 +161,35 @@ export default function TextBlock() {
 
           <h2 className="mt-6 text-xl font-semibold">{t.whyTitle}</h2>
           <p className="mt-2 text-white/90 leading-relaxed">{t.whyText}</p>
+        </div>
+      </div>
+
+      {/* Predložene mere + dijagram/model — PUNA širina kartice */}
+      <div className="mt-8 w-full">
+        <div className="rounded-lg bg-white/5 p-4 ring-1 ring-white/10">
+          <p className="font-semibold">{t.dimsTitle}</p>
+          <div className="mt-3 grid gap-4 md:grid-cols-2">
+            <ul className="space-y-1 text-white/90">
+              {t.dims.map((d, i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-white/40" />
+                  <span>{d}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Dijagram modela */}
+            <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden ring-1 ring-white/10 bg-black/10">
+              <Image
+                src="/images/illusions/mini-ames-room-model.png"
+                alt={t.modelAlt}
+                fill
+                sizes="100vw"
+                className="object-contain"
+                priority
+              />
+            </div>
+          </div>
         </div>
       </div>
 
