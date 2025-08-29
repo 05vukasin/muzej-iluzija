@@ -204,12 +204,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/stroop-effect.jpg",
   },
   {
-    slug: "margaret-tacer-iluzija",
+    slug: "thatcher-effect",
     category: "cognitive",
     emoji: "🙃",
     titleSr: "Margaret Tačer iluzija",
     titleEn: "Thatcher Effect",
-    img: "/images/illusions/thatcher.jpg",
+    img: "/images/illusions/thatcher-effect.webp",
   },
   {
     slug: "lice-u-oblacima",
