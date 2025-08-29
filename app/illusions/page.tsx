@@ -162,12 +162,20 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/curved-lines.jpg",
   },
   {
-    slug: "iluzija-sesira",
+    slug: "same-lines",
+    category:"shape",
+    emoji:"➡️⬅️",
+    titleSr:"Iste linije različite dužine",
+    titleEn:"Same lines diferent length",
+    img:"/images/illusions/same-lines.webp"
+  },
+  {
+    slug: "hat-illusion",
     category: "shape",
     emoji: "🎩",
     titleSr: "Iluzija šešira",
     titleEn: "Hat Illusion",
-    img: "/images/illusions/sesir.jpg",
+    img: "/images/illusions/hat-illusion.jpg",
   },
   {
     slug: "iluzija-kutija",
