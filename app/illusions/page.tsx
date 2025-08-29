@@ -212,12 +212,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/thatcher-effect.webp",
   },
   {
-    slug: "lice-u-oblacima",
+    slug: "face-in-clouds",
     category: "cognitive",
     emoji: "☁️",
     titleSr: "Lice u oblacima",
     titleEn: "Face in the Clouds",
-    img: "/images/illusions/oblaci.jpg",
+    img: "/images/illusions/face-in-clouds.jpg",
   },
   {
     slug: "nemoguci-oblik",
