@@ -3,14 +3,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { LanguageContext } from "@/app/context/LanguageContext";
 
-type DragState =
-  | null
-  | {
-      which: "top" | "bottom";
-      pointerId: number;
-      dxPct: number;
-      dyPct: number;
-    };
+type DragState = null | {
+  which: "top" | "bottom";
+  pointerId: number;
+  dxPct: number;
+  dyPct: number;
+};
 
 export default function Illusion() {
   const { language } = useContext(LanguageContext);
@@ -21,7 +19,9 @@ export default function Illusion() {
     lead: isSr
       ? "Prevuci i rotiraj oblike. Identični su — ali kada su jedan ispod drugog, donji često deluje duži. Sada možeš i da ih okreneš da bi ih precizno poravnao."
       : "Drag and rotate the shapes. They’re identical—yet stacked one under the other the lower often looks longer. You can rotate each piece to align them precisely.",
-    controls: isSr ? "Početni položaji i rotacije" : "Starting positions & rotations",
+    controls: isSr
+      ? "Početni položaji i rotacije"
+      : "Starting positions & rotations",
     reset: isSr ? "Resetuj" : "Reset",
     top: isSr ? "Gornji" : "Top",
     bottom: isSr ? "Donji" : "Bottom",
@@ -31,6 +31,7 @@ export default function Illusion() {
   };
 
   // Responsive canvas
+  const initializedRef = useRef(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const [w, setW] = useState(720);
   const [h, setH] = useState(360);
@@ -52,11 +53,20 @@ export default function Illusion() {
   const [topX, setTopX] = useState(53);
   const [topY, setTopY] = useState(36);
   const [botX, setBotX] = useState(47);
-  const [botY, setBotY] = useState(64);
+  const [botY, setBotY] = useState(55);
 
   // Rotations (degrees)
   const [topRot, setTopRot] = useState(3);
   const [botRot, setBotRot] = useState(0);
+
+  useEffect(() => {
+    if (initializedRef.current) return;
+    const isDesktop =
+      typeof window !== "undefined" &&
+      window.matchMedia("(min-width: 768px)").matches;
+    setBotY(isDesktop ? 64 : 55);
+    initializedRef.current = true;
+  }, []);
 
   const reset = () => {
     setTopX(50);
@@ -125,7 +135,9 @@ export default function Illusion() {
 
   return (
     <div className="rounded-2xl bg-black/65 backdrop-blur-md text-white shadow-2xl ring-1 ring-white/10 p-6 sm:p-8 lg:p-10">
-      <h2 className="text-xl sm:text-2xl font-bold tracking-tight">⌇ {t.title}</h2>
+      <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+        ⌇ {t.title}
+      </h2>
       <p className="mt-2 text-white/80">{t.lead}</p>
 
       <div ref={wrapRef} className="mt-6 sm:mt-8 mx-auto w-full max-w-[900px]">
@@ -217,7 +229,8 @@ export default function Illusion() {
                 className="w-full accent-brand-235"
               />
               <label className="block text-sm text-white/90 mt-3 mb-1">
-                {t.rot}: <span className="tabular-nums">{topRot.toFixed(0)}°</span>
+                {t.rot}:{" "}
+                <span className="tabular-nums">{topRot.toFixed(0)}°</span>
               </label>
               <input
                 type="range"
@@ -256,7 +269,8 @@ export default function Illusion() {
                 className="w-full accent-brand-235"
               />
               <label className="block text-sm text-white/90 mt-3 mb-1">
-                {t.rot}: <span className="tabular-nums">{botRot.toFixed(0)}°</span>
+                {t.rot}:{" "}
+                <span className="tabular-nums">{botRot.toFixed(0)}°</span>
               </label>
               <input
                 type="range"
