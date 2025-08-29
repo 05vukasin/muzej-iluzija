@@ -228,12 +228,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/impossible-shape.jpg",
   },
   {
-    slug: "konformizam",
+    slug: "conformity",
     category: "cognitive",
     emoji: "📊",
     titleSr: "Konformizam",
     titleEn: "Conformity",
-    img: "/images/illusions/konformizam.jpg",
+    img: "/images/illusions/conformity.jpg",
   },
 ] as const;
 
