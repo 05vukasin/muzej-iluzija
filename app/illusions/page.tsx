@@ -178,12 +178,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/hat-illusion.jpg",
   },
   {
-    slug: "iluzija-kutija",
+    slug: "box-illusion",
     category: "shape",
     emoji: "📦",
     titleSr: "Iluzija kutija",
     titleEn: "Box Illusion",
-    img: "/images/illusions/kutije.jpg",
+    img: "/images/illusions/box-illusion.jpg",
   },
   {
     slug: "iluzija-velikih-malih-krugova",
