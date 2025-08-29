@@ -186,12 +186,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/box-illusion.jpg",
   },
   {
-    slug: "iluzija-velikih-malih-krugova",
+    slug: "big-small-circles",
     category: "shape",
     emoji: "🔵",
     titleSr: "Iluzija velikih malih krugova",
     titleEn: "Big & Small Circles Illusion",
-    img: "/images/illusions/krugovi.jpg",
+    img: "/images/illusions/big-small-circles.jpg",
   },
 
   // Cognitive
