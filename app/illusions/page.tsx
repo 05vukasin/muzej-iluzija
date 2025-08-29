@@ -220,12 +220,12 @@ const ILLUSIONS: readonly Illusion[] = [
     img: "/images/illusions/face-in-clouds.jpg",
   },
   {
-    slug: "nemoguci-oblik",
+    slug: "impossible-shape",
     category: "cognitive",
     emoji: "⟁",
     titleSr: "Nemogući oblik",
     titleEn: "Impossible Shape",
-    img: "/images/illusions/nemoguci.jpg",
+    img: "/images/illusions/impossible-shape.jpg",
   },
   {
     slug: "konformizam",
