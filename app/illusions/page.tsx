@@ -196,12 +196,12 @@ const ILLUSIONS: readonly Illusion[] = [
 
   // Cognitive
   {
-    slug: "stroopov-efekat",
+    slug: "stroop-effect",
     category: "cognitive",
     emoji: "💯",
     titleSr: "Stroopov efekat",
     titleEn: "Stroop Effect",
-    img: "/images/illusions/stroop.jpg",
+    img: "/images/illusions/stroop-effect.jpg",
   },
   {
     slug: "margaret-tacer-iluzija",
