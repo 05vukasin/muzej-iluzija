@@ -141,16 +141,16 @@ export default function Footer() {
             © {year} Iluzionarijum. {t("Sva prava zadržana.", "All rights reserved.")}
           </p>
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-primary/70">
-            <Link className="hover:text-primary" href="/pravila">
+            <Link className="hover:text-primary" href="/terms">
               {t("Uslovi korišćenja", "Terms")}
             </Link>
-            <Link className="hover:text-primary" href="/privatnost">
+            <Link className="hover:text-primary" href="/privacy">
               {t("Politika privatnosti", "Privacy")}
             </Link>
-            <Link className="hover:text-primary" href="/#faq">
+            <Link className="hover:text-primary" href="/FAQ">
               {t("FAQ", "FAQ")}
             </Link>
-            <Link className="hover:text-primary" href="/mapa-sajta">
+            <Link className="hover:text-primary" href="/sitemap">
               {t("Mapa sajta", "Sitemap")}
             </Link>
           </nav>
