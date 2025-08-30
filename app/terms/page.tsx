@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { useContext } from "react";
 import { LanguageContext } from "@/app/context/LanguageContext";
+import { CONTACT } from "@/app/data/site"; 
 
 export default function TermsPage() {
   const { language } = useContext(LanguageContext);
   const isSr = language === "sr";
+
+  const email = CONTACT.email;
 
   const t = {
     cat: isSr ? "Pravna dokumenta" : "Legal",
@@ -131,7 +134,6 @@ export default function TermsPage() {
     contactP: isSr
       ? "Za pitanja u vezi sa ovim Uslovima, pišite nam:"
       : "For any questions about these Terms, contact us:",
-    email: "info@iluzionarijum.rs",
     back: isSr ? "Nazad na početnu" : "Back home",
     privacy: isSr ? "Politika privatnosti" : "Privacy Policy",
   };
@@ -290,8 +292,8 @@ export default function TermsPage() {
             <h2 className="text-xl font-bold">{S.contact}</h2>
             <p className="mt-3 text-white/90">
               {t.contactP}{" "}
-              <a href="mailto:info@iluzionarijum.rs" className="underline hover:no-underline">
-                {t.email}
+              <a href={`mailto:${email}`} className="underline hover:no-underline">
+                {email}
               </a>
             </p>
           </section>

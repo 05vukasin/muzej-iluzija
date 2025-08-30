@@ -3,6 +3,7 @@
 import { useContext } from "react";
 import { LanguageContext } from "@/app/context/LanguageContext";
 import Cube from "@/app/components/cube";
+import Link from "next/link";
 
 export default function About() {
   const { language } = useContext(LanguageContext);
@@ -28,7 +29,7 @@ export default function About() {
       aria-labelledby="about-title"
     >
       {/* 3D kocke – donji desni ugao, iza sadržaja */}
-       <div className="pointer-events-none absolute bottom-0 right-0 w-[45vw] max-w-[560px] h-[45vw] max-h-[560px]">
+      <div className="pointer-events-none absolute bottom-0 right-0 w-[45vw] max-w-[560px] h-[45vw] max-h-[560px]">
         <Cube scale={1.2} className="!pointer-events-none" />
       </div>
 
@@ -47,12 +48,14 @@ export default function About() {
           </div>
 
           <div className="mt-8">
-            <a
-              href="/contact"
-              className="inline-block rounded-full bg-brand-235 text-white px-6 py-3 font-semibold hover:brightness-110 transition"
-            >
-              {language === "sr" ? "Kontaktirajte nas" : "Contact us"}
-            </a>
+            <Link href="/contact" legacyBehavior prefetch>
+              <a
+                href="/contact"
+                className="inline-block rounded-full bg-brand-235 text-white px-6 py-3 font-semibold hover:brightness-110 transition"
+              >
+                {language === "sr" ? "Kontaktirajte nas" : "Contact us"}
+              </a>
+            </Link>
           </div>
         </div>
       </div>

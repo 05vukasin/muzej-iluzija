@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { useContext } from "react";
 import { LanguageContext } from "@/app/context/LanguageContext";
+import { CONTACT } from "../data/site";
 
 export default function PrivacyPage() {
   const { language } = useContext(LanguageContext);
   const isSr = language === "sr";
+
+  const email = CONTACT.email;
 
   const t = {
     cat: isSr ? "Pravna dokumenta" : "Legal",
@@ -96,7 +99,6 @@ export default function PrivacyPage() {
     contact: isSr
       ? "Za pitanja o privatnosti ili ostvarivanje prava, pišite nam:"
       : "For privacy questions or to exercise your rights, contact:",
-    email: "info@iluzionarijum.rs",
     back: isSr ? "Nazad na početnu" : "Back home",
   };
 
@@ -209,8 +211,8 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-bold">{S.contact}</h2>
             <p className="mt-3 text-white/90">
               {t.contact}{" "}
-              <a href="mailto:info@iluzionarijum.rs" className="underline hover:no-underline">
-                {t.email}
+              <a href={`mailto:${email}`} className="underline hover:no-underline">
+                {email}
               </a>
             </p>
           </section>

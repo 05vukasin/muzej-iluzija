@@ -3,10 +3,15 @@
 import { useContext } from "react";
 import Link from "next/link";
 import { LanguageContext } from "@/app/context/LanguageContext";
+import { CONTACT } from "@/app/data/site"; 
 
 export default function FAQPage() {
   const { language } = useContext(LanguageContext);
   const isSr = language === "sr";
+
+  const email = CONTACT.email;
+  const phone = CONTACT.phoneDisplay;
+  const phoneHref = CONTACT.phoneHref;
 
   const t = {
     cat: isSr ? "Pomoć i podrška" : "Help & Support",
@@ -19,8 +24,6 @@ export default function FAQPage() {
     quicknav: isSr ? "Brza navigacija" : "Quick navigation",
     back: isSr ? "Nazad na početnu" : "Back home",
     contact: isSr ? "Kontakt" : "Contact",
-    email: "info@iluzionarijum.rs",
-    phone: "+381 64 123 4567",
 
     sections: {
       visit: isSr ? "Planiranje posete" : "Planning your visit",
@@ -188,12 +191,12 @@ export default function FAQPage() {
             <h2 className="text-lg font-bold">{t.contact}</h2>
             <p className="mt-2 text-white/90">
               Email:{" "}
-              <a href={`mailto:${t.email}`} className="underline hover:no-underline">
-                {t.email}
+              <a href={`mailto:${email}`} className="underline hover:no-underline">
+                {email}
               </a>{" "}
               · Tel:{" "}
-              <a href={`tel:${t.phone.replace(/\s+/g, "")}`} className="underline hover:no-underline">
-                {t.phone}
+              <a href={`tel:${phone.replace(/\s+/g, "")}`} className="underline hover:no-underline">
+                {phone}
               </a>
             </p>
           </div>

@@ -1,29 +1,27 @@
 // app/contact/page.tsx
 "use client";
 
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { LanguageContext } from "@/app/context/LanguageContext";
+import { CONTACT, LOCATION } from "@/app/data/site";
 
 export default function ContactPage() {
   const { language } = useContext(LanguageContext);
   const t = (sr: string, en: string) => (language === "sr" ? sr : en);
 
-  // ↓ Izmeni po potrebi
-  const phone = "+381 64 123 4567";
-  const email = "info@iluzionarijum.rs";
-  const address = "Zlatibor, Srbija";
-  const mapQuery = "Iluzionarijum Zlatibor";
+  // Tel/mail iz centralnog izvora
+  const phoneDisplay = CONTACT.phoneDisplay;
+  const telHref = CONTACT.phoneHref;            // već normalizovan u site.ts
+  const email = CONTACT.email;
+  const mailHref = `mailto:${CONTACT.email}`;
 
-  // helpers
-  const telHref = `tel:${phone.replace(/[\s()-]/g, "")}`;
-  const mailHref = `mailto:${email}`;
-
-  const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(
-    mapQuery
-  )}&z=15&output=embed`;
-  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    mapQuery
-  )}`;
+  // Adresa + Google Maps (link iz site.ts, embed izračunamo iz imena + linija)
+  const addressLines = LOCATION.addressLines;
+  const mapLink = LOCATION.mapsUrl;
+  const mapEmbed = useMemo(() => {
+    const query = `${LOCATION.name}, ${addressLines.join(", ")}`;
+    return `https://www.google.com/maps?q=${encodeURIComponent(query)}&z=15&output=embed`;
+  }, [addressLines]);
 
   return (
     <main className="min-h-screen bg-white">
@@ -57,7 +55,7 @@ export default function ContactPage() {
           {/* INFO KARTICA */}
           <div className="w-full">
             <div className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm shadow-sm p-6 md:p-8">
-              {/* Quick contacts na početku */}
+              {/* Quick contacts */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Telefon */}
                 <a
@@ -78,7 +76,7 @@ export default function ContactPage() {
                     <span className="text-xs uppercase tracking-wide text-primary/60">
                       {t("Telefon", "Phone")}
                     </span>
-                    <span className="font-semibold text-primary">{phone}</span>
+                    <span className="font-semibold text-primary">{phoneDisplay}</span>
                   </div>
                 </a>
 
@@ -112,8 +110,15 @@ export default function ContactPage() {
                 <h2 className="text-xl md:text-2xl font-extrabold text-primary">
                   {t("Adresa", "Address")}
                 </h2>
-                <p className="mt-2 text-primary/80 text-base md:text-lg">
-                  {address}
+                <p className="mt-2 text-primary/80 text-base md:text-lg leading-relaxed">
+                  <strong>{LOCATION.name}</strong>
+                  <br />
+                  {addressLines.map((line) => (
+                    <span key={line}>
+                      {line}
+                      <br />
+                    </span>
+                  ))}
                 </p>
 
                 <a
@@ -158,10 +163,11 @@ export default function ContactPage() {
             name: "Iluzionarijum",
             address: {
               "@type": "PostalAddress",
+              streetAddress: addressLines.join(", "),
               addressLocality: "Zlatibor",
               addressCountry: "RS",
             },
-            telephone: phone,
+            telephone: phoneDisplay,
             email: email,
             url: "https://iluzionarijum.rs/contact",
           }),

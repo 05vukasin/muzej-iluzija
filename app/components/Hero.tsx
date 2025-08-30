@@ -4,6 +4,7 @@
 import Image from "next/image";
 import { useContext } from "react";
 import { LanguageContext } from "../context/LanguageContext";
+import Link from "next/link";
 
 const backgroundImage = "/images/picture-1.jpg";
 const logo = "/images/logo-white.png";
@@ -59,9 +60,16 @@ export default function Hero() {
                 : "Interactive installations, optical illusions and visual brain teasers for all ages."}
             </p>
 
-            <a href="/illusions" className="card_btn">
-              {language === "sr" ? "Pogledaj" : "Explore"}
-            </a>
+            <Link href="/illusions" legacyBehavior prefetch>
+              <a
+                className="card_btn"
+                aria-label={
+                  language === "sr" ? "Pogledaj iluzije" : "Explore illusions"
+                }
+              >
+                {language === "sr" ? "Pogledaj" : "Explore"}
+              </a>
+            </Link>
           </figure>
         </div>
       </div>
@@ -137,7 +145,7 @@ export default function Hero() {
 
         .card_logo {
           display: flex;
-          padding-top:100px;
+          padding-top: 100px;
           justify-content: center;
           align-items: center;
           z-index: 2;
